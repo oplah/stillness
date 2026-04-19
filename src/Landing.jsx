@@ -30,12 +30,35 @@ export default function Landing({ onStart }) {
     <div className="screen" style={{ flexDirection: 'column' }}>
       <LandingBg />
       <div className="landing-content">
-        <div className={`eyebrow fade-item${vis[0] ? ' vis' : ''}`}>A mindful puzzle experience</div>
-        <h1 className={`big-title fade-item${vis[1] ? ' vis' : ''}`}>Still<em>ness</em></h1>
-        <p className={`tagline fade-item${vis[2] ? ' vis' : ''}`}>"{aff}"</p>
+        <div
+          className={`eyebrow fade-item${vis[0] ? ' vis' : ''}`}
+          style={{ color: 'rgba(255,255,255,0.65)' }}
+        >
+          A mindful puzzle experience
+        </div>
+        <h1
+          className={`big-title fade-item${vis[1] ? ' vis' : ''}`}
+          style={{ color: '#ffffff' }}
+        >
+          Still<em style={{ color: 'rgba(255,190,220,0.9)' }}>ness</em>
+        </h1>
+        <p
+          className={`tagline fade-item${vis[2] ? ' vis' : ''}`}
+          style={{ color: 'rgba(255,255,255,0.8)' }}
+        >
+          "{aff}"
+        </p>
         <div className={`landing-cta fade-item${vis[3] ? ' vis' : ''}`}>
-          <button className="btn btn-pill" onClick={onStart}>Begin a puzzle</button>
-          <p className="sub-note">No accounts · No scores · Just presence</p>
+          <button
+            className="btn btn-pill"
+            onClick={onStart}
+            style={{ background: 'rgba(255,255,255,0.95)', color: '#2e1470', letterSpacing: '.12em' }}
+          >
+            Begin a puzzle
+          </button>
+          <p className="sub-note" style={{ color: 'rgba(255,255,255,0.45)' }}>
+            No accounts · No scores · Just presence
+          </p>
         </div>
       </div>
     </div>

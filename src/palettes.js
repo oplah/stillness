@@ -1,33 +1,84 @@
+const uid = () => Math.random().toString(36).slice(2, 7);
+
+// ── Procedural palette generators ──────────────────────────────────────────
+// Each call returns a fresh, unique set of harmonious colours for the theme.
+
+const r = (min, max) => min + Math.random() * (max - min);
+const hsl = (h, s, l) =>
+  `hsl(${Math.round(((h % 360) + 360) % 360)},${Math.round(Math.min(88, Math.max(20, s)))}%,${Math.round(Math.min(88, Math.max(25, l)))}%)`;
+
 // Nature: [sky1,sky2,sky3, terrace1,terrace2, rose1,rose2, tree1,tree2, accent]
-export const N_PAL = [
-  ['#c4d8f0','#ddd0f4','#f4ece0','#8ab898','#9cc4a0','#d89888','#e8b0a0','#548870','#70aa88','#c0aee0'],
-  ['#f0e0c8','#f8e8d0','#fceedd','#c8a060','#dbb870','#d46858','#e47868','#506050','#6a8068','#d4c080'],
-  ['#d4ecd8','#e8f4e8','#f4f8ec','#6ca880','#80bc94','#90b070','#aac488','#3a6050','#508068','#a8d4a0'],
-  ['#d8cce8','#e8dcf4','#f4ecf8','#9080c4','#a890d4','#d898c0','#e8b0d0','#5a4890','#7868a8','#e8b8d8'],
-  ['#b8dce8','#cce8f0','#e8f4f8','#5a9cac','#70b0bc','#8cb4b8','#a0c8cc','#3a7888','#5a9898','#b0d8e0'],
-];
+function genNaturePal() {
+  const skyMoods = [
+    { h: r(200,240), s: r(38,58), l: r(72,82) }, // cool blue
+    { h: r(250,290), s: r(28,48), l: r(75,85) }, // purple
+    { h: r(20, 46),  s: r(55,70), l: r(75,85) }, // warm dawn
+    { h: r(175,200), s: r(38,54), l: r(74,83) }, // teal
+    { h: r(330,358), s: r(28,48), l: r(80,88) }, // rose
+  ];
+  const sky = skyMoods[Math.floor(Math.random() * skyMoods.length)];
+  const terH = r(95, 155);
+  const roseH = r(0, 35);
+  const treeH = r(105, 152);
+  const accH = sky.h + 150 + r(-25, 25);
+  return [
+    hsl(sky.h,        sky.s,        sky.l),
+    hsl(sky.h + 12,   sky.s - 8,    sky.l - 6),
+    hsl(sky.h - 8,    sky.s - 18,   sky.l + 7),
+    hsl(terH,         r(38, 55),    r(50, 65)),
+    hsl(terH + 12,    r(42, 58),    r(56, 70)),
+    hsl(roseH,        r(48, 65),    r(62, 76)),
+    hsl(roseH + 12,   r(42, 58),    r(68, 80)),
+    hsl(treeH,        r(48, 65),    r(28, 42)),
+    hsl(treeH + 10,   r(42, 58),    r(35, 50)),
+    hsl(accH,         r(52, 68),    r(62, 75)),
+  ];
+}
 
 // Animals: [sky1,sky2,sky3, water1,water2, crane, lotus, pad, tree, mist]
-export const A_PAL = [
-  ['#c8d8f4','#dcd0f0','#f0e8dc','#a8c8e4','#b4b8dc','#f8f4f0','#f0c0cc','#80b48a','#7090a0','#fff'],
-  ['#f4d8b8','#f8e4c8','#fceedd','#e8a870','#d49060','#faf8f4','#f8c8a0','#9ab870','#8a9060','#fff'],
-  ['#d0c4e8','#dcd0f4','#ece8f8','#a898d4','#908cc4','#f0eef8','#e8b8d8','#8890c8','#7078a8','#fff'],
-  ['#c8e4d4','#d8edd8','#ecf4ec','#88c4a8','#78b098','#f4faf4','#e0f0d0','#78b090','#608878','#fff'],
-  ['#f0dcd4','#f4e4dc','#f8ece8','#d4a898','#c09080','#faf8f4','#f8d0c8','#c09088','#9a7870','#fff'],
-];
+function genAnimalsPal() {
+  const skyH = r(170, 290);
+  const waterH = skyH + r(-15, 15);
+  const lotusH = r(310, 370);
+  const padH   = r(100, 155);
+  const treeH  = r(95,  165);
+  return [
+    hsl(skyH,          r(30, 52), r(72, 84)),
+    hsl(skyH + 14,     r(24, 44), r(68, 80)),
+    hsl(skyH - 10,     r(14, 28), r(82, 92)),
+    hsl(waterH,        r(35, 55), r(62, 76)),
+    hsl(waterH + 12,   r(30, 50), r(55, 68)),
+    hsl(0, 0, r(92, 98)),                         // crane — near-white
+    hsl(lotusH % 360,  r(42, 58), r(70, 82)),
+    hsl(padH,          r(38, 54), r(60, 72)),
+    hsl(treeH,         r(35, 52), r(38, 55)),
+    '#fff',
+  ];
+}
 
 // Things/Architecture: [sky1,sky2,sky3, tw1a,tw1b, tw2a,tw2b, bridge, d1, d2]
-export const T_PAL = [
-  ['#ccc4f0','#e4d8f4','#f8e8e0','#e0988a','#cc807a','#90c0a8','#78a890','#e4ccb4','#d0c4f0','#b8cce8'],
-  ['#c4d8f4','#d4e8f8','#ecf4fc','#c4a060','#b08850','#5888b8','#4878a8','#e8d4a0','#b8cce8','#c4dcf0'],
-  ['#e8d4e8','#f0dce8','#f8ecf4','#e07880','#cc6068','#a870a0','#905890','#e4c8d4','#e0b8d8','#d0b0c8'],
-  ['#d0e8d8','#deeee4','#f0f8f4','#a8c480','#90b068','#60a898','#4a9080','#e8e0d0','#a8d4a0','#b8e0d8'],
-  ['#e8e0d4','#f0e8d8','#f8f0e8','#d47850','#c06038','#70a8c0','#5890a8','#f0dcc8','#e0c8b0','#b8d8e8'],
-];
+function genThingsPal() {
+  const skyH  = r(0, 360);
+  const tw1H  = r(0, 360);
+  const tw2H  = tw1H + r(100, 200);
+  const bridH = r(25, 55);
+  return [
+    hsl(skyH,         r(22, 48), r(74, 86)),
+    hsl(skyH + 16,    r(18, 38), r(70, 82)),
+    hsl(skyH - 12,    r(12, 26), r(80, 90)),
+    hsl(tw1H,         r(45, 62), r(55, 68)),
+    hsl(tw1H + 14,    r(40, 58), r(48, 62)),
+    hsl(tw2H,         r(45, 62), r(55, 68)),
+    hsl(tw2H + 14,    r(40, 58), r(48, 62)),
+    hsl(bridH,        r(28, 48), r(66, 78)),
+    hsl(skyH + 120,   r(40, 58), r(62, 75)),
+    hsl(skyH + 210,   r(35, 55), r(58, 72)),
+  ];
+}
 
-export const PALS = { nature: N_PAL, animals: A_PAL, things: T_PAL };
+const PAL_GENS = { nature: genNaturePal, animals: genAnimalsPal, things: genThingsPal };
 
-const uid = () => Math.random().toString(36).slice(2, 7);
+// ── SVG generators ──────────────────────────────────────────────────────────
 
 export const makeNature = (p, id) => {
   const [s1,s2,s3,t1,t2,r1,r2,tr1,tr2,acc] = p;
@@ -182,8 +233,7 @@ const GENS = { nature: makeNature, animals: makeAnimals, things: makeThings };
 
 export function genIll(theme, id) {
   id = id || uid();
-  const pal = PALS[theme];
-  const p = pal[Math.floor(Math.random() * pal.length)];
+  const p = PAL_GENS[theme]();
   return GENS[theme](p, id);
 }
 
