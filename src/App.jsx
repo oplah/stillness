@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Landing from './Landing';
 import Setup from './Setup';
 import PuzzleCanvas from './PuzzleCanvas';
@@ -14,6 +14,17 @@ export default function App() {
   const [diff, setDiff] = useState(() => localStorage.getItem('stn_diff') || 'medium');
   const [curSvg, setCurSvg] = useState(null);
   const [complete, setComplete] = useState(false);
+  const [uiTheme, setUiTheme] = useState(() => localStorage.getItem('stn_ui') || 'light');
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', uiTheme);
+  }, [uiTheme]);
+
+  const toggleUi = () => {
+    const next = uiTheme === 'light' ? 'dark' : 'light';
+    setUiTheme(next);
+    localStorage.setItem('stn_ui', next);
+  };
 
   const go = (s) => { setScreen(s); setComplete(false); localStorage.setItem('stn_screen', s); };
 
@@ -36,7 +47,7 @@ export default function App() {
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative', overflow: 'hidden' }}>
       {screen === 'landing' && <Landing onStart={() => go('setup')} />}
-      {screen === 'setup'   && <Setup onBegin={begin} onBack={() => go('landing')} />}
+      {screen === 'setup'   && <Setup onBegin={begin} onBack={() => go('landing')} uiTheme={uiTheme} onToggleUi={toggleUi} />}
       {screen === 'puzzle'  && (
         <div className="screen" style={{ flexDirection: 'column', gap: 0, justifyContent: 'flex-start', paddingTop: 12 }}>
           <div className="puz-header">
@@ -44,7 +55,12 @@ export default function App() {
               <button className="btn btn-ghost" onClick={() => go('setup')}>← Change</button>
               <span className="puz-title">{THEME_LABELS[theme]}</span>
             </div>
-            <button className="btn btn-ghost" onClick={restart} style={{ fontSize: 12 }}>New variation ↻</button>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+              <button className="btn btn-ghost" onClick={restart} style={{ fontSize: 12 }}>New variation ↻</button>
+              <button className="theme-toggle" onClick={toggleUi}>
+                {uiTheme === 'light' ? '☽ Dark' : '☀ Light'}
+              </button>
+            </div>
           </div>
           {curSvg && (
             <PuzzleCanvas

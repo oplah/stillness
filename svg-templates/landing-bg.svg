@@ -1,0 +1,105 @@
+<svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Sky gradient: deep indigo → purple → mauve → amber -->
+    <linearGradient id="bgsky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#140c38"/>
+      <stop offset="30%"  stop-color="#2e1470"/>
+      <stop offset="62%"  stop-color="#a03878"/>
+      <stop offset="100%" stop-color="#e8804a"/>
+    </linearGradient>
+
+    <!-- Warm horizon glow -->
+    <radialGradient id="bgglow" cx="50%" cy="68%" r="40%">
+      <stop offset="0%"   stop-color="#f0904a" stop-opacity=".45"/>
+      <stop offset="100%" stop-color="#2e1470" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Bottom fog fade -->
+    <linearGradient id="bgfog" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#0a0820" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#0a0820" stop-opacity=".75"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ── Sky ── -->
+  <rect width="1440" height="900" fill="url(#bgsky)"/>
+  <rect width="1440" height="900" fill="url(#bgglow)"/>
+
+  <!-- ── Stars ── -->
+  <circle cx="72"   cy="28"  r="1.5" fill="white" opacity=".35"/>
+  <circle cx="210"  cy="55"  r="1"   fill="white" opacity=".25"/>
+  <circle cx="380"  cy="18"  r="1.5" fill="white" opacity=".45"/>
+  <circle cx="540"  cy="42"  r="1"   fill="white" opacity=".35"/>
+  <circle cx="720"  cy="12"  r="1.5" fill="white" opacity=".25"/>
+  <circle cx="890"  cy="35"  r="1"   fill="white" opacity=".45"/>
+  <circle cx="1050" cy="22"  r="1.5" fill="white" opacity=".35"/>
+  <circle cx="1230" cy="48"  r="1"   fill="white" opacity=".25"/>
+  <circle cx="1380" cy="15"  r="1"   fill="white" opacity=".45"/>
+  <circle cx="140"  cy="80"  r="1"   fill="white" opacity=".35"/>
+  <circle cx="450"  cy="68"  r="1.5" fill="white" opacity=".25"/>
+  <circle cx="680"  cy="88"  r="1"   fill="white" opacity=".45"/>
+  <circle cx="900"  cy="60"  r="1.5" fill="white" opacity=".25"/>
+  <circle cx="1160" cy="75"  r="1"   fill="white" opacity=".35"/>
+  <circle cx="1340" cy="85"  r="1.5" fill="white" opacity=".25"/>
+  <circle cx="300"  cy="30"  r="1"   fill="white" opacity=".45"/>
+  <circle cx="820"  cy="18"  r="1.5" fill="white" opacity=".35"/>
+  <circle cx="1000" cy="44"  r="1"   fill="white" opacity=".25"/>
+
+  <!-- ── Far mountains — dark purple zigzag ── -->
+  <polygon
+    points="0,540 80,430 160,540 240,408 320,540 420,395 520,540 620,415 720,385 820,415 920,540 1020,400 1120,540 1220,410 1320,540 1440,420 1440,900 0,900"
+    fill="#200e58"/>
+
+  <!-- ── Mid mountains ── -->
+  <polygon
+    points="0,620 140,500 280,620 420,475 560,620 700,468 840,620 980,478 1120,620 1280,490 1440,610 1440,900 0,900"
+    fill="#180a40"/>
+
+  <!-- ── Stepped terraces ── -->
+  <rect x="0"   y="655" width="1440" height="28" rx="3" fill="#1a2c5a" opacity=".9"/>
+  <rect x="80"  y="632" width="1280" height="24" rx="3" fill="#1c3468" opacity=".85"/>
+  <rect x="220" y="610" width="1000" height="22" rx="3" fill="#1a2c60" opacity=".8"/>
+  <rect x="360" y="590" width="720"  height="20" rx="3" fill="#182870" opacity=".75"/>
+
+  <!-- ── Foreground dark base ── -->
+  <rect x="0" y="683" width="1440" height="217" fill="#0a0820"/>
+
+  <!-- ── Reflection shimmer lines ── -->
+  <line x1="0" y1="726" x2="1440" y2="726" stroke="#5030a0" stroke-width="1.2" opacity=".35"/>
+  <line x1="0" y1="758" x2="1440" y2="758" stroke="#5030a0" stroke-width="1"   opacity=".25"/>
+  <line x1="0" y1="792" x2="1440" y2="792" stroke="#5030a0" stroke-width="1"   opacity=".15"/>
+
+  <!-- ── Floating diamond accents ── -->
+  <rect x="700"  y="275" width="22" height="22" fill="#f0c860" opacity=".55" transform="rotate(45,711,286)"/>
+  <rect x="195"  y="315" width="14" height="14" fill="#d8a8f0" opacity=".5"  transform="rotate(45,202,322)"/>
+  <rect x="1205" y="295" width="13" height="13" fill="#f0b870" opacity=".45" transform="rotate(45,1211,301)"/>
+  <rect x="490"  y="198" width="10" height="10" fill="#a8c8f0" opacity=".42" transform="rotate(45,495,203)"/>
+  <rect x="960"  y="245" width="10" height="10" fill="#f0a0c0" opacity=".4"  transform="rotate(45,965,250)"/>
+  <rect x="340"  y="160" width="8"  height="8"  fill="#c0e0f0" opacity=".35" transform="rotate(45,344,164)"/>
+  <rect x="1080" y="180" width="8"  height="8"  fill="#e0c0f0" opacity=".32" transform="rotate(45,1084,184)"/>
+
+  <!-- ── Bottom fog overlay ── -->
+  <rect width="1440" height="900" fill="url(#bgfog)"/>
+
+  <!-- ══════════════════════════════════════════════════
+       BIRDS — animated in the app, static here for editing
+       Each bird is a simple M-curve gull shape
+       ══════════════════════════════════════════════════ -->
+  <g opacity=".6" stroke="rgba(255,255,255,0.6)" stroke-width="1.5" fill="none" stroke-linecap="round">
+    <path d="M60,108  Q67,103 74,106 Q81,103 88,108"  transform="scale(0.79)"/>
+    <path d="M200,63  Q207,58 214,61 Q221,58 228,63"  transform="scale(0.61)"/>
+    <path d="M380,198 Q388,193 396,196 Q404,193 412,198" transform="scale(0.71)"/>
+    <path d="M600,54  Q607,49 614,52 Q621,49 628,54"  transform="scale(0.54)"/>
+    <path d="M820,252 Q829,247 838,250 Q847,247 856,252" transform="scale(0.86)"/>
+    <path d="M1040,153 Q1047,148 1054,151 Q1061,148 1068,153" transform="scale(0.64)"/>
+    <path d="M1240,90 Q1247,85 1254,88 Q1261,85 1268,90" transform="scale(0.57)"/>
+  </g>
+
+  <!-- ══════════════════════════════════════════════════
+       LEAVES — animated in the app, static here for editing
+       ══════════════════════════════════════════════════ -->
+  <ellipse cx="317" cy="298" rx="5" ry="9" fill="rgba(255,200,230,0.5)" transform="rotate(-30,317,298)"/>
+  <ellipse cx="979" cy="265" rx="4" ry="7" fill="rgba(200,180,255,0.5)" transform="rotate(-30,979,265)"/>
+  <ellipse cx="634" cy="336" rx="4.5" ry="8" fill="rgba(180,220,255,0.45)" transform="rotate(-30,634,336)"/>
+
+</svg>

@@ -6,6 +6,16 @@
   --text: #3a3250;
   --muted: #9888b8;
   --lav: #8ab89a;
+  --toggle-bg: rgba(58,50,80,.08);
+}
+
+[data-theme="dark"] {
+  --bg: #0e0c1e;
+  --bg2: #1a1630;
+  --text: #e8e0f8;
+  --muted: #9888b8;
+  --lav: #7a9e8a;
+  --toggle-bg: rgba(255,255,255,.08);
 }
 
 html, body { height: 100%; background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow: hidden; }
@@ -71,6 +81,24 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
 canvas { display: block; cursor: grab; touch-action: none; }
 canvas.drag { cursor: grabbing; }
 .hint { font-size: 12px; color: var(--muted); letter-spacing: .06em; text-align: center; padding-top: 10px; }
+
+/* Theme toggle */
+.theme-toggle {
+  background: var(--toggle-bg);
+  border: 1px solid rgba(138,184,154,.25);
+  border-radius: 100px;
+  padding: 7px 14px;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  letter-spacing: .1em;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all .25s;
+}
+.theme-toggle:hover { color: var(--text); border-color: var(--lav); }
 
 /* Complete */
 .complete-ov { position: fixed; inset: 0; background: rgba(240,235,226,.92); backdrop-filter: blur(10px); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 100; animation: floatUp .8s ease both; }
