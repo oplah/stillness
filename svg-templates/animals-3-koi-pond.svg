@@ -1,0 +1,51 @@
+<svg viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<radialGradient id="sk" cx="50%" cy="50%" r="65%"><stop offset="0%" stop-color="#6898c8"/><stop offset="100%" stop-color="#486898"/></radialGradient>
+<linearGradient id="ms" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fff" stop-opacity="0"/><stop offset="100%" stop-color="#fff" stop-opacity=".35"/></linearGradient>
+</defs>
+<!-- Top-down pond view -->
+<rect width="480" height="480" fill="url(#sk)"/>
+<!-- Water grid shimmer -->
+<g stroke="white" stroke-width="1" fill="none" opacity=".2">
+<line x1="0" y1="80" x2="480" y2="80"/><line x1="0" y1="176" x2="480" y2="176"/>
+<line x1="0" y1="294" x2="480" y2="294"/><line x1="0" y1="400" x2="480" y2="400"/>
+<line x1="80" y1="0" x2="80" y2="480"/><line x1="240" y1="0" x2="240" y2="480"/><line x1="400" y1="0" x2="400" y2="480"/>
+</g>
+<!-- Lily pads -->
+<circle cx="118" cy="148" r="50" fill="#78b068" opacity=".78"/>
+<path d="M118,98 L118,148" stroke="#5a9850" stroke-width="1.5" fill="none" opacity=".5"/>
+<circle cx="340" cy="318" r="42" fill="#78b068" opacity=".72"/>
+<path d="M340,276 L340,318" stroke="#5a9850" stroke-width="1.5" fill="none" opacity=".45"/>
+<circle cx="196" cy="344" r="32" fill="#78b068" opacity=".68"/>
+<circle cx="382" cy="118" r="28" fill="#78b068" opacity=".62"/>
+<!-- Koi fish — white -->
+<g transform="translate(186,222) rotate(-38)">
+<ellipse cx="0" cy="0" rx="36" ry="14" fill="#f5f0ee"/>
+<polygon points="36,0 52,-8 52,8" fill="#f5f0ee" opacity=".88"/>
+<ellipse cx="-22" cy="0" rx="15" ry="8" fill="#e8a8c8" opacity=".75"/>
+</g>
+<!-- Koi fish — orange/red -->
+<g transform="translate(292,152) rotate(52)">
+<ellipse cx="0" cy="0" rx="32" ry="13" fill="#e87040"/>
+<polygon points="32,0 48,-7 48,7" fill="#e87040" opacity=".88"/>
+<ellipse cx="-19" cy="0" rx="13" ry="7" fill="#f5f0ee" opacity=".65"/>
+</g>
+<!-- Koi fish — small white -->
+<g transform="translate(374,382) rotate(-22)">
+<ellipse cx="0" cy="0" rx="30" ry="12" fill="#f5f0ee" opacity=".82"/>
+<polygon points="30,0 44,-6 44,6" fill="#f5f0ee" opacity=".75"/>
+</g>
+<!-- Ripple rings -->
+<g opacity=".55" fill="none" stroke="white">
+<circle cx="186" cy="222" r="24" stroke-width="1.2"/><circle cx="186" cy="222" r="38" stroke-width=".7" opacity=".5"/>
+<circle cx="292" cy="152" r="20" stroke-width="1.2"/><circle cx="292" cy="152" r="32" stroke-width=".7" opacity=".5"/>
+</g>
+<!-- Lotus on first lily pad -->
+<g transform="translate(118,138)">
+<ellipse cx="0" cy="-10" rx="9" ry="12" fill="#e8a8c8" opacity=".85"/>
+<ellipse cx="8" cy="-5" rx="8" ry="10" fill="#e8a8c8" opacity=".78"/>
+<ellipse cx="-8" cy="-5" rx="8" ry="10" fill="#e8a8c8" opacity=".78"/>
+<circle cx="0" cy="-12" r="5" fill="#f0d080" opacity=".8"/>
+</g>
+<rect width="480" height="480" fill="url(#ms)" opacity=".22"/>
+</svg>

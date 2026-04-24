@@ -1,0 +1,34 @@
+<svg viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c8d8f0"/><stop offset="55%" stop-color="#a0b8e0"/><stop offset="100%" stop-color="#d4e0f4"/></linearGradient>
+<linearGradient id="ms" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fff" stop-opacity="0"/><stop offset="100%" stop-color="#fff" stop-opacity=".45"/></linearGradient>
+</defs>
+<rect width="480" height="480" fill="url(#sk)"/>
+<!-- Crescent moon -->
+<circle cx="340" cy="96" r="46" fill="#d4e0f4" opacity=".9"/>
+<circle cx="364" cy="84" r="40" fill="#c8d8f0"/>
+<!-- Rolling hills layered -->
+<path d="M0,330 Q60,260 120,290 Q180,320 240,270 Q300,220 360,250 Q420,280 480,230 L480,480 L0,480Z" fill="#5a9850"/>
+<path d="M0,360 Q80,310 160,340 Q240,370 320,320 Q400,270 480,310 L480,480 L0,480Z" fill="#6aac5e"/>
+<path d="M0,400 Q120,370 240,390 Q360,410 480,375 L480,480 L0,480Z" fill="#e89870"/>
+<!-- Conifer trees -->
+<g fill="#1e4a1e">
+<polygon points="48,338 64,306 80,338"/><polygon points="62,317 76,284 90,317"/><polygon points="70,296 86,260 102,296"/>
+<polygon points="140,302 156,268 172,302"/><polygon points="152,282 168,246 184,282"/>
+<polygon points="270,272 286,238 302,272"/><polygon points="282,253 298,218 314,253"/><polygon points="290,234 308,197 326,234"/>
+<polygon points="390,288 406,255 422,288"/><polygon points="400,268 418,234 436,268"/>
+</g>
+<g fill="#2e5e2e" opacity=".7">
+<polygon points="46,340 58,318 70,340"/><polygon points="268,274 278,254 288,274"/><polygon points="388,291 398,271 408,291"/>
+</g>
+<ellipse cx="100" cy="368" rx="80" ry="12" fill="white" opacity=".22"/>
+<ellipse cx="380" cy="360" rx="65" ry="11" fill="white" opacity=".18"/>
+<!-- Diamond accents -->
+<g opacity=".52">
+<rect x="80" y="184" width="12" height="12" fill="#f0d060" transform="rotate(45,86,190)"/>
+<rect x="250" y="152" width="10" height="10" fill="#f0d060" transform="rotate(45,255,157)"/>
+<rect x="410" y="168" width="9" height="9" fill="#f0d060" transform="rotate(45,414,172)"/>
+<rect x="176" y="128" width="8" height="8" fill="#f0d060" transform="rotate(45,180,132)"/>
+</g>
+<rect width="480" height="480" fill="url(#ms)" opacity=".26"/>
+</svg>

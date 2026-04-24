@@ -1,0 +1,49 @@
+<svg viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c8d8c0"/><stop offset="60%" stop-color="#a8c0a0"/><stop offset="100%" stop-color="#d4e4cc"/></linearGradient>
+<linearGradient id="ms" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fff" stop-opacity="0"/><stop offset="100%" stop-color="#fff" stop-opacity=".52"/></linearGradient>
+</defs>
+<rect width="480" height="480" fill="url(#sk)"/>
+<!-- Tree trunks (forest) -->
+<g opacity=".35" fill="#3a5a2a">
+<rect x="24" y="140" width="14" height="340"/><rect x="68" y="160" width="10" height="320"/>
+<rect x="108" y="130" width="16" height="350"/><rect x="360" y="120" width="16" height="360"/>
+<rect x="402" y="150" width="12" height="330"/><rect x="438" y="140" width="14" height="340"/>
+</g>
+<g opacity=".18" fill="#3a5a2a">
+<rect x="46" y="170" width="8" height="310"/><rect x="88" y="145" width="9" height="335"/>
+<rect x="382" y="135" width="10" height="345"/><rect x="422" y="160" width="8" height="320"/>
+</g>
+<!-- Mist layers -->
+<ellipse cx="240" cy="420" rx="200" ry="40" fill="white" opacity=".52"/>
+<ellipse cx="240" cy="375" rx="165" ry="28" fill="white" opacity=".32"/>
+<ellipse cx="240" cy="340" rx="120" ry="20" fill="white" opacity=".2"/>
+<!-- Geometric deer -->
+<g transform="translate(240,265)">
+<!-- Body -->
+<polygon points="0,-58 -32,-18 -26,42 0,54 26,42 32,-18" fill="#f0ece8"/>
+<!-- Back legs -->
+<polygon points="-26,42 0,54 -9,92 -21,92" fill="#f0ece8" opacity=".92"/>
+<polygon points="26,42 0,54 9,92 21,92" fill="#f0ece8" opacity=".92"/>
+<!-- Front hooves -->
+<polygon points="-9,92 -21,92 -18,118 -6,118" fill="#f0ece8" opacity=".82"/>
+<polygon points="9,92 21,92 18,118 6,118" fill="#f0ece8" opacity=".82"/>
+<!-- Neck -->
+<polygon points="0,-58 -13,-80 -5,-60" fill="#f0ece8"/>
+<polygon points="0,-58 13,-80 5,-60" fill="#f0ece8"/>
+<!-- Head -->
+<circle cx="0" cy="-78" r="14" fill="#f0ece8"/>
+<!-- Eye -->
+<circle cx="-5" cy="-82" r="4" fill="#2a2040"/>
+<!-- Antlers -->
+<path d="M-13,-80 Q-28,-100 -20,-120 M-13,-80 Q-32,-92 -18,-112" stroke="#f0ece8" stroke-width="3" fill="none" stroke-linecap="round"/>
+<path d="M13,-80 Q28,-100 20,-120 M13,-80 Q32,-92 18,-112" stroke="#f0ece8" stroke-width="3" fill="none" stroke-linecap="round"/>
+</g>
+<!-- Diamond accents -->
+<g opacity=".55">
+<rect x="140" y="134" width="10" height="10" fill="#e8a8c8" transform="rotate(45,145,139)"/>
+<rect x="320" y="150" width="9" height="9" fill="#e8a8c8" transform="rotate(45,324,154)"/>
+<rect x="76" y="178" width="8" height="8" fill="#e8a8c8" transform="rotate(45,80,182)"/>
+</g>
+<rect width="480" height="480" fill="url(#ms)" opacity=".3"/>
+</svg>

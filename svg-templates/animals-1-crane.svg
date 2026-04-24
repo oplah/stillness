@@ -1,0 +1,58 @@
+<svg viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#90c4d8"/><stop offset="50%" stop-color="#78aec8"/><stop offset="100%" stop-color="#b8d8e8"/></linearGradient>
+<linearGradient id="wt" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#6898b8"/><stop offset="100%" stop-color="#5888a8"/></linearGradient>
+<linearGradient id="ms" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fff" stop-opacity="0"/><stop offset="100%" stop-color="#fff" stop-opacity=".5"/></linearGradient>
+</defs>
+<rect width="480" height="480" fill="url(#sk)"/>
+<rect x="0" y="295" width="480" height="185" fill="url(#wt)" opacity=".8"/>
+<rect x="0" y="290" width="480" height="8" fill="#5888a8" opacity=".5"/>
+<line x1="0" y1="316" x2="480" y2="316" stroke="white" stroke-width="1.2" opacity=".35"/>
+<line x1="0" y1="340" x2="480" y2="340" stroke="white" stroke-width="1" opacity=".24"/>
+<line x1="0" y1="365" x2="480" y2="365" stroke="white" stroke-width="1" opacity=".17"/>
+<!-- Background trees -->
+<g opacity=".32" fill="#3a5a3a">
+<rect x="28" y="235" width="7" height="58"/><ellipse cx="31" cy="230" rx="17" ry="22"/>
+<rect x="60" y="244" width="6" height="48"/><ellipse cx="63" cy="240" rx="12" ry="16"/>
+<rect x="400" y="238" width="7" height="55"/><ellipse cx="403" cy="233" rx="16" ry="20"/>
+<rect x="432" y="246" width="6" height="46"/><ellipse cx="435" cy="242" rx="11" ry="15"/>
+</g>
+<!-- Bridge -->
+<rect x="198" y="280" width="84" height="14" rx="7" fill="#c0b0a0"/>
+<!-- Lily pads -->
+<ellipse cx="110" cy="316" rx="38" ry="13" fill="#78b068" opacity=".78"/>
+<ellipse cx="348" cy="330" rx="30" ry="11" fill="#78b068" opacity=".7"/>
+<ellipse cx="228" cy="360" rx="44" ry="14" fill="#78b068" opacity=".72"/>
+<ellipse cx="72" cy="380" rx="24" ry="9" fill="#78b068" opacity=".6"/>
+<!-- Lotus flower -->
+<g transform="translate(110,310)">
+<ellipse cx="0" cy="-10" rx="9" ry="13" fill="#e8a8c8" opacity=".9"/>
+<ellipse cx="8" cy="-5" rx="8" ry="11" fill="#e8a8c8" opacity=".82"/>
+<ellipse cx="-8" cy="-5" rx="8" ry="11" fill="#e8a8c8" opacity=".82"/>
+<ellipse cx="0" cy="-12" rx="5" ry="8" fill="#e8a8c8" opacity=".95"/>
+<ellipse cx="0" cy="-8" rx="3" ry="3" fill="#f0d080" opacity=".8"/>
+</g>
+<!-- Crane -->
+<g transform="translate(240,195)">
+<ellipse cx="0" cy="0" rx="20" ry="34" fill="#f5f0ee" transform="rotate(-8)"/>
+<polygon points="0,-32 7,-68 -3,-70 -7,-32" fill="#f5f0ee"/>
+<ellipse cx="3" cy="-74" rx="9" ry="8" fill="#f5f0ee"/>
+<ellipse cx="3" cy="-82" rx="5" ry="4" fill="#d44848"/>
+<line x1="3" y1="-70" x2="20" y2="-74" stroke="#d4a040" stroke-width="4" stroke-linecap="round"/>
+<polygon points="-20,-5 -68,18 -55,-8 -20,-22" fill="#f5f0ee" opacity=".95"/>
+<polygon points="20,-5 64,22 52,-6 20,-22" fill="#f5f0ee" opacity=".9"/>
+<polygon points="-55,-8 -68,18 -50,16 -46,-4" fill="#282838" opacity=".75"/>
+<polygon points="52,-6 64,22 48,20 44,-2" fill="#282838" opacity=".65"/>
+<rect x="-4" y="32" width="5" height="64" fill="#c0a060" rx="2"/>
+<rect x="1" y="32" width="4" height="64" fill="#c8a868" rx="2"/>
+</g>
+<!-- Water reflection -->
+<g transform="translate(240,296) scale(1,-0.32)" opacity=".18">
+<ellipse cx="0" cy="0" rx="20" ry="34" fill="#5888a8"/>
+<polygon points="-20,-5 -68,18 -55,-8 -20,-22" fill="#5888a8"/>
+<polygon points="20,-5 64,22 52,-6 20,-22" fill="#5888a8"/>
+</g>
+<ellipse cx="60" cy="294" rx="88" ry="16" fill="white" opacity=".44"/>
+<ellipse cx="410" cy="300" rx="85" ry="18" fill="white" opacity=".38"/>
+<rect width="480" height="480" fill="url(#ms)" opacity=".26"/>
+</svg>

@@ -1,0 +1,51 @@
+<svg viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#b0c8e8"/><stop offset="60%" stop-color="#90aed4"/><stop offset="100%" stop-color="#c4d8f0"/></linearGradient>
+<linearGradient id="wt" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#6898c8" stop-opacity=".72"/><stop offset="100%" stop-color="#4878a8" stop-opacity=".9"/></linearGradient>
+<linearGradient id="lh" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#e8d8b8"/><stop offset="100%" stop-color="#d4c0a0"/></linearGradient>
+<linearGradient id="ms" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fff" stop-opacity="0"/><stop offset="100%" stop-color="#fff" stop-opacity=".4"/></linearGradient>
+</defs>
+<rect width="480" height="480" fill="url(#sk)"/>
+<!-- Water -->
+<rect x="0" y="338" width="480" height="142" fill="url(#wt)"/>
+<line x1="0" y1="356" x2="480" y2="356" stroke="white" stroke-width="1.2" opacity=".28"/>
+<line x1="0" y1="380" x2="480" y2="380" stroke="white" stroke-width="1" opacity=".2"/>
+<line x1="0" y1="406" x2="480" y2="406" stroke="white" stroke-width="1" opacity=".13"/>
+<!-- Rocky island -->
+<polygon points="178,368 200,338 242,326 282,338 302,368 262,378 218,378" fill="#a09080"/>
+<polygon points="148,420 360,420 302,368 178,368" fill="#d4c0a0" opacity=".45"/>
+<!-- Tower base -->
+<rect x="216" y="272" width="48" height="68" rx="2" fill="url(#lh)"/>
+<rect x="212" y="268" width="56" height="10" rx="1" fill="#d4c0a0"/>
+<rect x="216" y="300" width="48" height="5" rx="1" fill="#d4c0a0" opacity=".45"/>
+<rect x="216" y="325" width="48" height="5" rx="1" fill="#d4c0a0" opacity=".45"/>
+<!-- Tower middle -->
+<rect x="220" y="158" width="40" height="114" rx="1" fill="url(#lh)"/>
+<rect x="216" y="154" width="48" height="10" rx="1" fill="#d4c0a0"/>
+<rect x="216" y="196" width="48" height="5" rx="1" fill="#d4c0a0" opacity=".4"/>
+<rect x="216" y="226" width="48" height="5" rx="1" fill="#d4c0a0" opacity=".4"/>
+<!-- Lantern room -->
+<rect x="222" y="126" width="36" height="34" rx="2" fill="#c8e0f0"/>
+<rect x="218" y="122" width="44" height="8" rx="1" fill="#b0c8e0"/>
+<polygon points="214,122 266,122 240,100" fill="#b0c8e0"/>
+<!-- Beacon light -->
+<circle cx="240" cy="114" r="16" fill="#f0e060" opacity=".88"/>
+<circle cx="240" cy="114" r="10" fill="white" opacity=".9"/>
+<!-- Light beam -->
+<polygon points="240,98 145,246 124,236" fill="#f0e060" opacity=".14"/>
+<polygon points="240,98 335,246 356,236" fill="#f0e060" opacity=".12"/>
+<!-- Flagpole -->
+<rect x="236" y="92" width="8" height="12" rx="2" fill="#b0c8e0"/>
+<!-- Water reflection shimmer -->
+<g stroke="#6898c8" stroke-width="1.5" fill="none" opacity=".3">
+<path d="M158,380 Q200,373 242,380 Q282,387 322,380"/>
+</g>
+<!-- Diamonds -->
+<g opacity=".52">
+<rect x="128" y="186" width="11" height="11" fill="#e8d060" transform="rotate(45,133,191)"/>
+<rect x="352" y="168" width="10" height="10" fill="#f0c840" transform="rotate(45,357,173)"/>
+<rect x="66" y="252" width="9" height="9" fill="#e8d060" transform="rotate(45,70,256)"/>
+<rect x="394" y="226" width="9" height="9" fill="#f0c840" transform="rotate(45,398,230)"/>
+</g>
+<rect width="480" height="480" fill="url(#ms)" opacity=".24"/>
+</svg>

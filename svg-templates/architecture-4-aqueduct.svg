@@ -1,0 +1,55 @@
+<svg viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#e0d4b8"/><stop offset="58%" stop-color="#c8b898"/><stop offset="100%" stop-color="#ece0c8"/></linearGradient>
+<linearGradient id="wt" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7898c8" stop-opacity=".68"/><stop offset="100%" stop-color="#6080a8" stop-opacity=".9"/></linearGradient>
+<linearGradient id="ms" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fff" stop-opacity="0"/><stop offset="100%" stop-color="#fff" stop-opacity=".4"/></linearGradient>
+</defs>
+<rect width="480" height="480" fill="url(#sk)"/>
+<!-- Water -->
+<rect x="0" y="356" width="480" height="124" fill="url(#wt)"/>
+<line x1="0" y1="374" x2="480" y2="374" stroke="white" stroke-width="1.2" opacity=".28"/>
+<line x1="0" y1="396" x2="480" y2="396" stroke="white" stroke-width="1" opacity=".2"/>
+<line x1="0" y1="418" x2="480" y2="418" stroke="white" stroke-width="1" opacity=".13"/>
+<!-- Full aqueduct body -->
+<rect x="24" y="178" width="432" height="178" fill="#c8b090"/>
+<!-- Arch openings (show sky through them) -->
+<path d="M60,356 L60,250 A48,48 0 0 0 156,250 L156,356 Z" fill="url(#sk)"/>
+<path d="M192,356 L192,250 A48,48 0 0 0 288,250 L288,356 Z" fill="url(#sk)"/>
+<path d="M324,356 L324,250 A48,48 0 0 0 420,250 L420,356 Z" fill="url(#sk)"/>
+<!-- Walkway top -->
+<rect x="24" y="170" width="432" height="16" rx="2" fill="#b09878"/>
+<rect x="24" y="162" width="432" height="12" rx="2" fill="#d4b888" opacity=".72"/>
+<!-- Pier edge highlights -->
+<rect x="24" y="178" width="8" height="178" fill="#b09878" opacity=".32"/>
+<rect x="52" y="178" width="6" height="178" fill="white" opacity=".09"/>
+<rect x="156" y="178" width="8" height="178" fill="#b09878" opacity=".32"/>
+<rect x="184" y="178" width="6" height="178" fill="white" opacity=".09"/>
+<rect x="288" y="178" width="8" height="178" fill="#b09878" opacity=".32"/>
+<rect x="316" y="178" width="6" height="178" fill="white" opacity=".09"/>
+<rect x="420" y="178" width="8" height="178" fill="#b09878" opacity=".32"/>
+<!-- Pier caps -->
+<rect x="18" y="160" width="48" height="14" rx="2" fill="#d4b888" opacity=".78"/>
+<rect x="150" y="160" width="48" height="14" rx="2" fill="#d4b888" opacity=".78"/>
+<rect x="282" y="160" width="48" height="14" rx="2" fill="#d4b888" opacity=".78"/>
+<rect x="414" y="160" width="48" height="14" rx="2" fill="#d4b888" opacity=".78"/>
+<!-- Arch keystones -->
+<circle cx="108" cy="250" r="5" fill="#d4b888" opacity=".62"/>
+<circle cx="240" cy="250" r="5" fill="#d4b888" opacity=".62"/>
+<circle cx="372" cy="250" r="5" fill="#d4b888" opacity=".62"/>
+<!-- Water shimmer reflections -->
+<g stroke="#7898c8" stroke-width="1.5" fill="none" opacity=".32">
+<path d="M80,382 Q108,376 136,382"/>
+<path d="M212,388 Q240,382 268,388"/>
+<path d="M344,384 Q372,378 400,384"/>
+</g>
+<!-- Diamonds -->
+<g opacity=".52">
+<rect x="90" y="106" width="12" height="12" fill="#f0c840" transform="rotate(45,96,112)"/>
+<rect x="228" y="116" width="10" height="10" fill="#e8b828" transform="rotate(45,233,121)"/>
+<rect x="368" y="106" width="11" height="11" fill="#f0c840" transform="rotate(45,373,111)"/>
+<rect x="50" y="136" width="9" height="9" fill="#e8b828" transform="rotate(45,54,140)"/>
+<rect x="418" y="128" width="9" height="9" fill="#f0c840" transform="rotate(45,422,132)"/>
+</g>
+<ellipse cx="240" cy="366" rx="200" ry="18" fill="white" opacity=".2"/>
+<rect width="480" height="480" fill="url(#ms)" opacity=".24"/>
+</svg>

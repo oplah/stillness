@@ -1,0 +1,56 @@
+<svg viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#d8e8f0"/><stop offset="100%" stop-color="#b8d0e4"/></linearGradient>
+<linearGradient id="gr" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#e8d4b8"/><stop offset="100%" stop-color="#d8c4a4"/></linearGradient>
+<linearGradient id="ms" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fff" stop-opacity="0"/><stop offset="100%" stop-color="#fff" stop-opacity=".4"/></linearGradient>
+</defs>
+<rect width="480" height="480" fill="url(#sk)"/>
+<!-- Sand ground -->
+<rect x="0" y="258" width="480" height="222" fill="url(#gr)"/>
+<rect x="20" y="246" width="440" height="16" rx="3" fill="#a89870" opacity=".55"/>
+<!-- Raked sand lines (curves around rocks) -->
+<g stroke="#c8b890" stroke-width="1.2" fill="none" opacity=".45">
+<path d="M0,278 Q240,268 480,278"/>
+<path d="M0,292 Q240,282 480,292"/>
+<path d="M0,306 Q240,296 480,306"/>
+<path d="M0,320 Q240,310 480,320"/>
+<path d="M0,334 Q110,348 190,334 Q260,320 480,334"/>
+<path d="M0,348 Q110,362 190,348 Q260,334 480,348"/>
+<path d="M0,362 Q110,376 190,362 Q260,348 480,362"/>
+<path d="M0,376 Q350,392 410,376 Q445,366 480,376"/>
+<path d="M0,390 Q350,406 410,390 Q445,380 480,390"/>
+<path d="M0,404 Q350,420 410,404 Q445,394 480,404"/>
+<path d="M0,418 Q240,430 480,418"/>
+<path d="M0,432 Q240,444 480,432"/>
+</g>
+<!-- Rocks -->
+<ellipse cx="198" cy="332" rx="31" ry="19" fill="#9a9080" opacity=".8"/>
+<ellipse cx="214" cy="324" rx="19" ry="13" fill="#b0a898" opacity=".75"/>
+<ellipse cx="194" cy="322" rx="15" ry="11" fill="#a89880" opacity=".85"/>
+<ellipse cx="372" cy="358" rx="23" ry="15" fill="#b0a898" opacity=".75"/>
+<ellipse cx="360" cy="352" rx="14" ry="10" fill="#9a9080" opacity=".8"/>
+<ellipse cx="98" cy="374" rx="17" ry="11" fill="#a89880" opacity=".68"/>
+<!-- Pruned bonsai tree -->
+<rect x="298" y="196" width="8" height="70" rx="4" fill="#5a4030" opacity=".8"/>
+<rect x="290" y="190" width="8" height="54" rx="4" fill="#4a3020" opacity=".7" transform="rotate(-18,294,217)"/>
+<rect x="306" y="186" width="6" height="46" rx="3" fill="#5a4030" opacity=".65" transform="rotate(12,309,209)"/>
+<ellipse cx="296" cy="188" rx="24" ry="17" fill="#3a6a2a" opacity=".8"/>
+<ellipse cx="290" cy="174" rx="18" ry="14" fill="#4a7a38" opacity=".75"/>
+<ellipse cx="306" cy="176" rx="15" ry="12" fill="#3a6a2a" opacity=".7"/>
+<ellipse cx="294" cy="162" rx="11" ry="9" fill="#4a7a38" opacity=".62"/>
+<!-- Sparse bare tree left -->
+<rect x="68" y="104" width="3" height="94" rx="2" fill="#6a5040" opacity=".5"/>
+<path d="M71 136 Q95 124 116 131" stroke="#6a5040" stroke-width="2.5" fill="none" opacity=".55"/>
+<path d="M71 154 Q48 144 36 150" stroke="#7a6050" stroke-width="2" fill="none" opacity=".5"/>
+<path d="M71 170 Q97 165 110 172" stroke="#6a5040" stroke-width="2" fill="none" opacity=".45"/>
+<!-- Low wall / border stones -->
+<rect x="132" y="228" width="216" height="30" rx="4" fill="#b0a898" opacity=".48"/>
+<rect x="148" y="210" width="184" height="22" rx="3" fill="#a89880" opacity=".42"/>
+<!-- Diamonds -->
+<g opacity=".55">
+<rect x="66" y="84" width="10" height="10" fill="#e8b060" transform="rotate(45,71,89)"/>
+<rect x="382" y="166" width="9" height="9" fill="#e8b060" transform="rotate(45,386,170)"/>
+<rect x="422" y="238" width="8" height="8" fill="#e8b060" transform="rotate(45,426,242)"/>
+</g>
+<rect width="480" height="480" fill="url(#ms)" opacity=".22"/>
+</svg>

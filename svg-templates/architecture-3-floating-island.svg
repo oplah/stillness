@@ -1,0 +1,58 @@
+<svg viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#d8c8f0"/><stop offset="60%" stop-color="#c0a8e0"/><stop offset="100%" stop-color="#e4d4f8"/></linearGradient>
+<linearGradient id="is" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#9870d0"/><stop offset="100%" stop-color="#7050b0"/></linearGradient>
+<linearGradient id="ms" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fff" stop-opacity="0"/><stop offset="100%" stop-color="#fff" stop-opacity=".42"/></linearGradient>
+</defs>
+<rect width="480" height="480" fill="url(#sk)"/>
+<!-- Cloud wisps -->
+<ellipse cx="78" cy="118" rx="72" ry="22" fill="white" opacity=".2"/>
+<ellipse cx="56" cy="120" rx="52" ry="16" fill="white" opacity=".14"/>
+<ellipse cx="402" cy="78" rx="66" ry="18" fill="white" opacity=".17"/>
+<ellipse cx="422" cy="80" rx="48" ry="14" fill="white" opacity=".12"/>
+<ellipse cx="196" cy="48" rx="82" ry="20" fill="white" opacity=".14"/>
+<!-- Small distant island -->
+<ellipse cx="382" cy="322" rx="52" ry="13" fill="#9870d0" opacity=".58"/>
+<polygon points="342,322 382,296 422,322 412,384 352,384" fill="url(#is)" opacity=".68"/>
+<ellipse cx="382" cy="384" rx="42" ry="11" fill="#7050b0" opacity=".52"/>
+<!-- Main island shadow -->
+<ellipse cx="240" cy="428" rx="132" ry="22" fill="#7050b0" opacity=".32"/>
+<!-- Main island rock belly -->
+<polygon points="102,318 180,278 240,266 300,278 378,318 338,432 142,432" fill="url(#is)"/>
+<!-- Land surface -->
+<ellipse cx="240" cy="318" rx="126" ry="30" fill="#9870d0"/>
+<ellipse cx="240" cy="316" rx="112" ry="24" fill="#b090e0" opacity=".45"/>
+<!-- Arch columns -->
+<rect x="188" y="246" width="26" height="72" rx="2" fill="#b090e0"/>
+<rect x="266" y="246" width="26" height="72" rx="2" fill="#9870d0"/>
+<!-- Arch -->
+<path d="M188,246 Q240,202 292,246" fill="none" stroke="#e8d8c0" stroke-width="18"/>
+<path d="M188,246 Q240,202 292,246" fill="none" stroke="#d8c8f0" stroke-width="9" opacity=".38"/>
+<!-- Lintel -->
+<rect x="180" y="240" width="120" height="14" rx="2" fill="#e8d8c0"/>
+<rect x="184" y="232" width="112" height="10" rx="2" fill="#9870d0" opacity=".58"/>
+<!-- Column caps -->
+<rect x="184" y="240" width="34" height="8" rx="1" fill="#9870d0" opacity=".65"/>
+<rect x="262" y="240" width="34" height="8" rx="1" fill="#b090e0" opacity=".65"/>
+<!-- Window -->
+<rect x="214" y="172" width="52" height="36" fill="#b090e0" opacity=".48"/>
+<rect x="218" y="176" width="44" height="28" rx="2" fill="#9870d0" opacity=".55"/>
+<rect x="224" y="181" width="14" height="20" rx="7" fill="#d8c8f0" opacity=".48"/>
+<rect x="242" y="181" width="14" height="20" rx="7" fill="#d8c8f0" opacity=".48"/>
+<!-- Hanging roots -->
+<g stroke="#7050b0" stroke-width="2" fill="none" opacity=".38" stroke-linecap="round">
+<path d="M158,432 Q153,458 160,472"/><path d="M194,432 Q191,462 186,477"/>
+<path d="M240,434 Q240,464 242,478"/><path d="M286,432 Q289,460 294,474"/>
+<path d="M322,432 Q326,456 320,470"/>
+</g>
+<!-- Diamonds -->
+<g opacity=".5">
+<rect x="160" y="194" width="12" height="12" fill="#f0c840" transform="rotate(45,166,200)"/>
+<rect x="302" y="186" width="11" height="11" fill="#e8d060" transform="rotate(45,307,191)"/>
+<rect x="240" y="166" width="10" height="10" fill="#f0c840" transform="rotate(45,245,171)"/>
+<rect x="88" y="268" width="9" height="9" fill="#e8d060" transform="rotate(45,92,272)"/>
+<rect x="382" y="258" width="9" height="9" fill="#f0c840" transform="rotate(45,386,262)"/>
+</g>
+<ellipse cx="240" cy="318" rx="180" ry="20" fill="white" opacity=".18"/>
+<rect width="480" height="480" fill="url(#ms)" opacity=".26"/>
+</svg>

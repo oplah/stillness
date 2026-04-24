@@ -1,0 +1,50 @@
+<svg viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#e0c8d8"/><stop offset="60%" stop-color="#c8a8c0"/><stop offset="100%" stop-color="#e8d4e0"/></linearGradient>
+<linearGradient id="cl" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7a9858"/><stop offset="100%" stop-color="#5a7840"/></linearGradient>
+<linearGradient id="ms" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fff" stop-opacity="0"/><stop offset="100%" stop-color="#fff" stop-opacity=".42"/></linearGradient>
+</defs>
+<rect width="480" height="480" fill="url(#sk)"/>
+<!-- Misty trees left side -->
+<g fill="#3a5a2a" opacity=".45">
+<rect x="28" y="220" width="7" height="180"/><ellipse cx="31" cy="215" rx="18" ry="24"/>
+<rect x="60" y="235" width="6" height="165"/><ellipse cx="63" cy="231" rx="13" ry="18"/>
+<rect x="88" y="228" width="7" height="172"/><ellipse cx="91" cy="223" rx="16" ry="21"/>
+</g>
+<!-- Cliff face -->
+<polygon points="258,178 344,178 362,362 240,362" fill="url(#cl)"/>
+<polygon points="240,362 362,362 382,424 218,424" fill="#5a7840"/>
+<rect x="218" y="422" width="164" height="58" fill="#e89870"/>
+<rect x="198" y="382" width="204" height="14" rx="2" fill="#d88060"/>
+<!-- Waterfall streaks -->
+<g opacity=".6" stroke="white" stroke-width="1.5" fill="none">
+<line x1="236" y1="210" x2="236" y2="362"/><line x1="241" y1="210" x2="241" y2="362"/><line x1="246" y1="218" x2="246" y2="362"/>
+</g>
+<!-- Pool at base -->
+<ellipse cx="238" cy="406" rx="46" ry="18" fill="#c8a8c0" opacity=".55"/>
+<!-- Pagoda tier 3 (bottom) -->
+<rect x="274" y="134" width="44" height="44" fill="#d47850"/>
+<polygon points="268,134 324,134 310,108 282,108" fill="#c06038"/>
+<polygon points="264,138 328,138 314,126 278,126" fill="#d47850" opacity=".65"/>
+<!-- Pagoda tier 2 -->
+<rect x="278" y="98" width="36" height="36" fill="#c06038"/>
+<polygon points="272,98 320,98 308,74 284,74" fill="#d47850"/>
+<polygon points="268,102 324,102 312,90 280,90" fill="#c06038" opacity=".65"/>
+<!-- Pagoda tier 1 (top) -->
+<rect x="282" y="66" width="28" height="32" fill="#d47850"/>
+<polygon points="276,66 318,66 308,44 284,44" fill="#c06038"/>
+<!-- Spire -->
+<rect x="293" y="40" width="6" height="28" fill="#f0c860"/>
+<!-- Pillar details -->
+<rect x="258" y="298" width="5" height="64" fill="#d47850" opacity=".65"/>
+<rect x="268" y="298" width="5" height="64" fill="#c06038" opacity=".75"/>
+<rect x="320" y="298" width="5" height="64" fill="#d47850" opacity=".65"/>
+<rect x="330" y="298" width="5" height="64" fill="#c06038" opacity=".75"/>
+<!-- Diamonds -->
+<g opacity=".55">
+<rect x="164" y="148" width="12" height="12" fill="#f0c860" transform="rotate(45,170,154)"/>
+<rect x="358" y="166" width="10" height="10" fill="#f0c860" transform="rotate(45,363,171)"/>
+<rect x="108" y="170" width="9" height="9" fill="#f0c860" transform="rotate(45,112,174)"/>
+</g>
+<rect width="480" height="480" fill="url(#ms)" opacity=".24"/>
+</svg>
