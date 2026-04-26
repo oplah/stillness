@@ -1,20 +1,34 @@
 import { useRef, useState, useEffect, useCallback } from 'react';
 import { illUrl } from './palettes';
 
-const IMG = 400, TAB = 0.26, CW = 920, BX = 260, BY = 60, SNAP = 42;
-const CH_D = 520;   // desktop canvas height
-const CH_M = 960;   // mobile canvas height (pieces tray below board)
-const MOB  = 0.65;  // scale threshold for mobile layout
+const CW = 920, TAB = 0.26;
+// Desktop layout constants
+const CH_D = 520, BX_D = 260, BY_D = 60, IMG_D = 400;
+const MOB = 0.65;       // scale threshold for mobile layout
+const MARGIN_M = 20;    // mobile board side margin (canvas units)
+
+// Returns the full layout for a given scale
+function getLayout(scale) {
+  if (scale >= MOB) return { bx: BX_D, by: BY_D, img: IMG_D, ch: CH_D, snap: 42 };
+  const bx = MARGIN_M, by = MARGIN_M;
+  const img = CW - MARGIN_M * 2;          // 880 — fills the canvas width
+  const overhead = 130;                    // header + padding + hint + gaps (px)
+  const ch = Math.max(
+    img + by + 260,                        // minimum: board + decent tray
+    Math.round((window.innerHeight - overhead) / scale),
+  );
+  return { bx, by, img, ch, snap: 68 };
+}
 
 function genTabs(cols, rows) {
   const h = Array.from({ length: rows },    () => Array.from({ length: cols - 1 }, () => Math.random() > .5 ? 1 : -1));
   const v = Array.from({ length: rows - 1 }, () => Array.from({ length: cols },     () => Math.random() > .5 ? 1 : -1));
   return Array.from({ length: rows }, (_, r) =>
     Array.from({ length: cols }, (_, c) => ({
-      top:    r === 0         ? 0 : -v[r-1][c],
-      right:  c === cols - 1  ? 0 :  h[r][c],
-      bottom: r === rows - 1  ? 0 :  v[r][c],
-      left:   c === 0         ? 0 : -h[r][c-1],
+      top:    r === 0        ? 0 : -v[r-1][c],
+      right:  c === cols - 1 ? 0 :  h[r][c],
+      bottom: r === rows - 1 ? 0 :  v[r][c],
+      left:   c === 0        ? 0 : -h[r][c-1],
     }))
   );
 }
@@ -49,36 +63,38 @@ function jigsawPath(pw, ph, { top, right, bottom, left }) {
 function scatter(bx, by, bw, bh, cw, ch, pw, ph) {
   const m = 10;
   const zones = [
-    { x: m,       y: m,       w: bx - m*2,             h: ch - m*2 },
-    { x: bx+bw+m, y: m,       w: cw - bx - bw - m*2,   h: ch - m*2 },
-    { x: bx,      y: by+bh+m, w: bw,                   h: ch - by - bh - m*2 },
-    { x: bx,      y: m,       w: bw,                   h: by - m*2 },
+    { x: m,       y: m,       w: bx - m*2,            h: ch - m*2 },
+    { x: bx+bw+m, y: m,       w: cw - bx - bw - m*2,  h: ch - m*2 },
+    { x: bx,      y: by+bh+m, w: bw,                  h: ch - by - bh - m*2 },
+    { x: bx,      y: m,       w: bw,                  h: by - m*2 },
   ].filter(z => z.w > pw + 10 && z.h > ph + 10);
   if (!zones.length) return { x: m + Math.random() * (cw - pw - m*2), y: m + Math.random() * (ch - ph - m*2) };
   const z = zones[Math.floor(Math.random() * zones.length)];
   return { x: z.x + Math.random() * (z.w - pw), y: z.y + Math.random() * (z.h - ph) };
 }
 
-function scatterMobile(pw, ph, ch) {
-  const m = 14;
-  const trayY = BY + IMG + 36;
+function scatterMobile(pw, ph, bx, by, img, ch) {
+  const m = 16;
+  const trayY = by + img + 34;
   return {
     x: m + Math.random() * (CW - pw - m * 2),
-    y: trayY + Math.random() * Math.max(0, ch - trayY - ph - m),
+    y: trayY + Math.random() * Math.max(10, ch - trayY - ph - m),
   };
 }
 
-function initPieces(cols, rows, mobile, ch) {
+function initPieces(cols, rows, layout) {
+  const { bx, by, img, ch } = layout;
   const tabs = genTabs(cols, rows);
-  const pw = IMG / cols, ph = IMG / rows;
+  const pw = img / cols, ph = img / rows;
+  const mobile = img > IMG_D;
   const ps = [];
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {
       const s = jigsawPath(pw, ph, tabs[r][c]);
-      const { x, y } = mobile
-        ? scatterMobile(pw, ph, ch)
-        : scatter(BX, BY, IMG, IMG, CW, ch, pw, ph);
-      ps.push({ id: r*cols+c, col: c, row: r, x, y, pw, ph, tabs: tabs[r][c], ps: s, p2: new Path2D(s), placed: false });
+      const pos = mobile
+        ? scatterMobile(pw, ph, bx, by, img, ch)
+        : scatter(bx, by, img, img, CW, ch, pw, ph);
+      ps.push({ id: r*cols+c, col: c, row: r, x: pos.x, y: pos.y, pw, ph, tabs: tabs[r][c], ps: s, p2: new Path2D(s), placed: false });
     }
   }
   for (let i = ps.length - 1; i > 0; i--) {
@@ -94,11 +110,13 @@ export default function PuzzleCanvas({ svgStr, cols, rows, onComplete, uiTheme }
   const [placed, setPlaced] = useState(0);
   const [scale, setScale] = useState(1);
   const scaleRef = useRef(1);
-  const prevMobRef = useRef(null);
+  const prevImgRef = useRef(null);  // track layout.img to detect desktop↔mobile switch
   const total = cols * rows;
 
-  const isMobile = scale < MOB;
-  const ch = isMobile ? CH_M : CH_D;
+  const layout = getLayout(scale);
+  // Always-fresh ref so draw/onUp closures never go stale
+  const layoutRef = useRef(layout);
+  layoutRef.current = layout;
 
   useEffect(() => {
     const update = () => {
@@ -111,36 +129,36 @@ export default function PuzzleCanvas({ svgStr, cols, rows, onComplete, uiTheme }
     return () => window.removeEventListener('resize', update);
   }, []);
 
-  // Load image and init pieces
+  // Load image → init pieces with layout computed at load time
   useEffect(() => {
     const im = new Image();
     im.onload = () => {
-      const mob = scaleRef.current < MOB;
-      const effectiveCh = mob ? CH_M : CH_D;
+      const L = getLayout(scaleRef.current);
       imgR.current = im;
-      prevMobRef.current = mob;
-      pcs.current = initPieces(cols, rows, mob, effectiveCh);
+      prevImgRef.current = L.img;
+      pcs.current = initPieces(cols, rows, L);
       setLoaded(true);
       setPlaced(0);
     };
     im.src = illUrl(svgStr);
   }, [svgStr, cols, rows]);
 
-  // Re-scatter pieces if layout switches between mobile/desktop
+  // Re-scatter if the layout switches between mobile and desktop
   useEffect(() => {
     if (!loaded) return;
-    if (prevMobRef.current === null || prevMobRef.current === isMobile) return;
-    prevMobRef.current = isMobile;
-    pcs.current = initPieces(cols, rows, isMobile, ch);
-  }, [isMobile, loaded, cols, rows, ch]);
+    if (prevImgRef.current === layout.img) return;
+    prevImgRef.current = layout.img;
+    pcs.current = initPieces(cols, rows, layout);
+  }, [layout.img, loaded, cols, rows]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const draw = useCallback(() => {
     const el = cvs.current; if (!el || !imgR.current) return;
     const ctx = el.getContext('2d');
-    const pw = IMG / cols, ph = IMG / rows;
+    const L = layoutRef.current;
+    const pw = L.img / cols, ph = L.img / rows;
     const dark = uiTheme === 'dark';
     const effectiveCh = el.height;
-    const mob = effectiveCh > CH_D;
+    const mob = L.img > IMG_D;
 
     ctx.clearRect(0, 0, CW, effectiveCh);
     ctx.fillStyle = dark ? '#12102a' : '#eae4db';
@@ -153,25 +171,23 @@ export default function PuzzleCanvas({ svgStr, cols, rows, onComplete, uiTheme }
     }
 
     // Ghost board image + grid lines
-    ctx.save(); ctx.globalAlpha = .1; ctx.drawImage(imgR.current, BX, BY, IMG, IMG); ctx.restore();
+    ctx.save(); ctx.globalAlpha = .1; ctx.drawImage(imgR.current, L.bx, L.by, L.img, L.img); ctx.restore();
     ctx.save(); ctx.strokeStyle = 'rgba(140,120,190,.22)'; ctx.lineWidth = 1;
-    for (let r = 0; r <= rows; r++) { ctx.beginPath(); ctx.moveTo(BX, BY + r*ph); ctx.lineTo(BX + IMG, BY + r*ph); ctx.stroke(); }
-    for (let c = 0; c <= cols; c++) { ctx.beginPath(); ctx.moveTo(BX + c*pw, BY); ctx.lineTo(BX + c*pw, BY + IMG); ctx.stroke(); }
+    for (let r = 0; r <= rows; r++) { ctx.beginPath(); ctx.moveTo(L.bx, L.by + r*ph); ctx.lineTo(L.bx + L.img, L.by + r*ph); ctx.stroke(); }
+    for (let c = 0; c <= cols; c++) { ctx.beginPath(); ctx.moveTo(L.bx + c*pw, L.by); ctx.lineTo(L.bx + c*pw, L.by + L.img); ctx.stroke(); }
     ctx.restore();
-    ctx.strokeStyle = 'rgba(140,120,190,.38)'; ctx.lineWidth = 1.5; ctx.strokeRect(BX, BY, IMG, IMG);
+    ctx.strokeStyle = 'rgba(140,120,190,.38)'; ctx.lineWidth = 1.5; ctx.strokeRect(L.bx, L.by, L.img, L.img);
 
     // Mobile tray divider
     if (mob) {
       ctx.save();
       ctx.strokeStyle = dark ? 'rgba(200,180,255,.14)' : 'rgba(140,120,190,.18)';
-      ctx.lineWidth = 1;
-      ctx.setLineDash([4, 10]);
+      ctx.lineWidth = 1; ctx.setLineDash([4, 10]);
       ctx.beginPath();
-      ctx.moveTo(40, BY + IMG + 20);
-      ctx.lineTo(CW - 40, BY + IMG + 20);
+      ctx.moveTo(40, L.by + L.img + 18);
+      ctx.lineTo(CW - 40, L.by + L.img + 18);
       ctx.stroke();
-      ctx.setLineDash([]);
-      ctx.restore();
+      ctx.setLineDash([]); ctx.restore();
     }
 
     // Draw pieces
@@ -181,7 +197,7 @@ export default function PuzzleCanvas({ svgStr, cols, rows, onComplete, uiTheme }
       ctx.save();
       if (sh) { ctx.shadowColor = 'rgba(50,40,90,.22)'; ctx.shadowBlur = 18; ctx.shadowOffsetY = 6; }
       ctx.translate(p.x, p.y); ctx.clip(p.p2);
-      ctx.drawImage(imgR.current, -p.col * p.pw, -p.row * p.ph, IMG, IMG);
+      ctx.drawImage(imgR.current, -p.col * p.pw, -p.row * p.ph, L.img, L.img);
       ctx.strokeStyle = p.placed ? 'rgba(255,255,255,.8)' : 'rgba(255,255,255,.45)'; ctx.lineWidth = 1.5; ctx.stroke(p.p2);
       ctx.restore();
     };
@@ -234,8 +250,9 @@ export default function PuzzleCanvas({ svgStr, cols, rows, onComplete, uiTheme }
   const onUp = () => {
     if (!drag.current) return;
     const p = pcs.current[drag.current.idx];
-    const tx = BX + p.col * p.pw, ty = BY + p.row * p.ph;
-    if (Math.hypot(p.x - tx, p.y - ty) < SNAP) {
+    const L = layoutRef.current;
+    const tx = L.bx + p.col * p.pw, ty = L.by + p.row * p.ph;
+    if (Math.hypot(p.x - tx, p.y - ty) < L.snap) {
       p.x = tx; p.y = ty; p.placed = true;
       const n = pcs.current.filter(q => q.placed).length;
       setPlaced(n);
@@ -246,8 +263,8 @@ export default function PuzzleCanvas({ svgStr, cols, rows, onComplete, uiTheme }
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, width: '100%' }}>
-      <div className="cvs-wrap" style={{ position: 'relative', width: CW * scale, height: ch * scale, flexShrink: 0 }}>
-        <canvas ref={cvs} width={CW} height={ch}
+      <div className="cvs-wrap" style={{ position: 'relative', width: CW * scale, height: layout.ch * scale, flexShrink: 0 }}>
+        <canvas ref={cvs} width={CW} height={layout.ch}
           style={{ transform: `scale(${scale})`, transformOrigin: 'top left', display: 'block' }}
           onMouseDown={onDown} onMouseMove={onMove} onMouseUp={onUp} onMouseLeave={onUp}
           onTouchStart={onDown} onTouchMove={onMove} onTouchEnd={onUp} />

@@ -49,7 +49,7 @@ export default function App() {
       {screen === 'landing' && <Landing onStart={() => go('setup')} />}
       {screen === 'setup'   && <Setup onBegin={begin} onBack={() => go('landing')} uiTheme={uiTheme} onToggleUi={toggleUi} />}
       {screen === 'puzzle'  && (
-        <div className="screen" style={{ flexDirection: 'column', gap: 0, justifyContent: 'flex-start', paddingTop: 12 }}>
+        <div className="screen" style={{ flexDirection: 'column', gap: 0, justifyContent: 'flex-start', paddingTop: 12, overflowY: 'auto' }}>
           <div className="puz-header">
             <div style={{ display: 'flex', alignItems: 'center', gap: 22 }}>
               <button className="btn btn-ghost" onClick={() => go('setup')}>← <span className="btn-label">Change</span></button>
