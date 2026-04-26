@@ -7,6 +7,9 @@
   --muted: #9888b8;
   --lav: #8ab89a;
   --toggle-bg: rgba(58,50,80,.08);
+  --btn-bg: #3a3250;
+  --btn-fg: #f8f5f0;
+  --overlay: rgba(240,235,226,.94);
 }
 
 [data-theme="dark"] {
@@ -16,6 +19,9 @@
   --muted: #9888b8;
   --lav: #7a9e8a;
   --toggle-bg: rgba(255,255,255,.08);
+  --btn-bg: #e8e0f8;
+  --btn-fg: #1a1630;
+  --overlay: rgba(14,12,30,.94);
 }
 
 html, body { height: 100%; background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow: hidden; }
@@ -31,10 +37,10 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
 .btn { border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 400; letter-spacing: .08em; transition: all .25s; display: inline-flex; align-items: center; gap: 8px; }
 .btn-ghost { background: transparent; color: var(--muted); font-size: 13px; padding: 8px 0; text-transform: uppercase; letter-spacing: .15em; border-bottom: 1px solid transparent; }
 .btn-ghost:hover { color: var(--text); border-bottom-color: var(--lav); }
-.btn-pill { background: var(--text); color: #f8f5f0; font-size: 13px; padding: 13px 36px; border-radius: 100px; letter-spacing: .12em; text-transform: uppercase; }
-.btn-pill:hover { background: var(--lav); transform: translateY(-1px); box-shadow: 0 8px 30px rgba(100,100,160,.2); }
-.btn-pill.out { background: transparent; border: 1.5px solid var(--text); color: var(--text); }
-.btn-pill.out:hover { background: var(--text); color: #f8f5f0; }
+.btn-pill { background: var(--btn-bg); color: var(--btn-fg); font-size: 13px; padding: 13px 36px; border-radius: 100px; letter-spacing: .12em; text-transform: uppercase; }
+.btn-pill:hover { background: var(--lav); color: var(--btn-fg); transform: translateY(-1px); box-shadow: 0 8px 30px rgba(100,100,160,.2); }
+.btn-pill.out { background: transparent; border: 1.5px solid var(--btn-bg); color: var(--btn-bg); }
+.btn-pill.out:hover { background: var(--btn-bg); color: var(--btn-fg); }
 
 @keyframes floatUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 .fade-item { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
@@ -72,7 +78,7 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
 .diff-row { display: flex; gap: 12px; justify-content: center; margin-bottom: 36px; }
 .diff-btn { background: var(--bg2); border: 1.5px solid transparent; border-radius: 100px; padding: 10px 26px; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--muted); transition: all .2s; letter-spacing: .04em; }
 .diff-btn:hover { color: var(--text); border-color: rgba(138,184,154,.5); }
-.diff-btn.sel { background: var(--text); color: #f8f5f0; border-color: var(--text); }
+.diff-btn.sel { background: var(--btn-bg); color: var(--btn-fg); border-color: var(--btn-bg); }
 
 /* Puzzle */
 .puz-header { position: relative; z-index: 10; display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 960px; padding: 18px 24px 10px; }
@@ -101,7 +107,7 @@ canvas.drag { cursor: grabbing; }
 .theme-toggle:hover { color: var(--text); border-color: var(--lav); }
 
 /* Complete */
-.complete-ov { position: fixed; inset: 0; background: rgba(240,235,226,.92); backdrop-filter: blur(10px); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 100; animation: floatUp .8s ease both; }
+.complete-ov { position: fixed; inset: 0; background: var(--overlay); backdrop-filter: blur(10px); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 100; animation: floatUp .8s ease both; }
 .comp-title { font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 300; text-align: center; }
 .comp-title em { font-style: italic; color: var(--muted); }
 .comp-ill { border-radius: 16px; overflow: hidden; box-shadow: 0 24px 80px rgba(60,50,100,.18); margin: 28px 0; animation: floatUp .8s .3s ease both; opacity: 0; animation-fill-mode: forwards; }

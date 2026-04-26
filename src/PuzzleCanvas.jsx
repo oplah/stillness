@@ -78,7 +78,15 @@ export default function PuzzleCanvas({ svgStr, cols, rows, onComplete }) {
   const cvs = useRef(null), imgR = useRef(null), pcs = useRef([]), drag = useRef(null), rafR = useRef(null);
   const [loaded, setLoaded] = useState(false);
   const [placed, setPlaced] = useState(0);
+  const [scale, setScale] = useState(1);
   const total = cols * rows;
+
+  useEffect(() => {
+    const update = () => setScale(Math.min(1, window.innerWidth / CW));
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
 
   useEffect(() => {
     const im = new Image();
@@ -141,7 +149,10 @@ export default function PuzzleCanvas({ svgStr, cols, rows, onComplete }) {
   const xy = (e) => {
     const r = cvs.current.getBoundingClientRect();
     const src = e.touches ? e.touches[0] : e;
-    return { mx: src.clientX - r.left, my: src.clientY - r.top };
+    return {
+      mx: (src.clientX - r.left) * (CW / r.width),
+      my: (src.clientY - r.top)  * (CH / r.height),
+    };
   };
 
   const onDown = (e) => {
@@ -172,9 +183,10 @@ export default function PuzzleCanvas({ svgStr, cols, rows, onComplete }) {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
-      <div className="cvs-wrap" style={{ position: 'relative' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, width: '100%' }}>
+      <div className="cvs-wrap" style={{ position: 'relative', width: CW * scale, height: CH * scale, flexShrink: 0 }}>
         <canvas ref={cvs} width={CW} height={CH}
+          style={{ transform: `scale(${scale})`, transformOrigin: 'top left', display: 'block' }}
           onMouseDown={onDown} onMouseMove={onMove} onMouseUp={onUp} onMouseLeave={onUp}
           onTouchStart={onDown} onTouchMove={onMove} onTouchEnd={onUp} />
         {!loaded && (
