@@ -676,6 +676,24 @@ export function genIll(theme, id) {
   return fn(p, id);
 }
 
+function inlineStyles(svgStr) {
+  const styleMatch = svgStr.match(/<style[^>]*>([\s\S]*?)<\/style>/i);
+  if (!styleMatch) return svgStr;
+  const rules = {};
+  const ruleRegex = /\.(\w+)\s*\{[^}]*fill:\s*([^;}\s]+)/g;
+  let m;
+  while ((m = ruleRegex.exec(styleMatch[1])) !== null) {
+    rules[m[1]] = m[2].trim();
+  }
+  if (!Object.keys(rules).length) return svgStr;
+  return svgStr.replace(/class="([^"]+)"/g, (match, classStr) => {
+    for (const cls of classStr.trim().split(/\s+/)) {
+      if (rules[cls]) return `fill="${rules[cls]}"`;
+    }
+    return match;
+  });
+}
+
 export function illUrl(svgStr) {
-  return `data:image/svg+xml,${encodeURIComponent(svgStr)}`;
+  return `data:image/svg+xml,${encodeURIComponent(inlineStyles(svgStr))}`;
 }
