@@ -52,13 +52,13 @@ export default function App() {
         <div className="screen" style={{ flexDirection: 'column', gap: 0, justifyContent: 'flex-start', paddingTop: 12 }}>
           <div className="puz-header">
             <div style={{ display: 'flex', alignItems: 'center', gap: 22 }}>
-              <button className="btn btn-ghost" onClick={() => go('setup')}>← Change</button>
+              <button className="btn btn-ghost" onClick={() => go('setup')}>← <span className="btn-label">Change</span></button>
               <span className="puz-title">{THEME_LABELS[theme]}</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-              <button className="btn btn-ghost" onClick={restart} style={{ fontSize: 12 }}>New variation ↻</button>
+              <button className="btn btn-ghost" onClick={restart} style={{ fontSize: 12 }}>↻ <span className="btn-label">New variation</span></button>
               <button className="theme-toggle" onClick={toggleUi}>
-                {uiTheme === 'light' ? '☽ Dark' : '☀ Light'}
+                {uiTheme === 'light' ? '☽' : '☀'} <span className="toggle-label">{uiTheme === 'light' ? 'Dark' : 'Light'}</span>
               </button>
             </div>
           </div>
@@ -68,6 +68,7 @@ export default function App() {
               svgStr={curSvg}
               cols={cols}
               rows={rows}
+              uiTheme={uiTheme}
               onComplete={() => setComplete(true)}
             />
           )}

@@ -1,7 +1,10 @@
 import { useRef, useState, useEffect, useCallback } from 'react';
 import { illUrl } from './palettes';
 
-const IMG = 400, TAB = 0.26, CW = 920, CH = 520, BX = 260, BY = 60, SNAP = 38;
+const IMG = 400, TAB = 0.26, CW = 920, BX = 260, BY = 60, SNAP = 42;
+const CH_D = 520;   // desktop canvas height
+const CH_M = 960;   // mobile canvas height (pieces tray below board)
+const MOB  = 0.65;  // scale threshold for mobile layout
 
 function genTabs(cols, rows) {
   const h = Array.from({ length: rows },    () => Array.from({ length: cols - 1 }, () => Math.random() > .5 ? 1 : -1));
@@ -56,14 +59,25 @@ function scatter(bx, by, bw, bh, cw, ch, pw, ph) {
   return { x: z.x + Math.random() * (z.w - pw), y: z.y + Math.random() * (z.h - ph) };
 }
 
-function initPieces(cols, rows) {
+function scatterMobile(pw, ph, ch) {
+  const m = 14;
+  const trayY = BY + IMG + 36;
+  return {
+    x: m + Math.random() * (CW - pw - m * 2),
+    y: trayY + Math.random() * Math.max(0, ch - trayY - ph - m),
+  };
+}
+
+function initPieces(cols, rows, mobile, ch) {
   const tabs = genTabs(cols, rows);
   const pw = IMG / cols, ph = IMG / rows;
   const ps = [];
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {
       const s = jigsawPath(pw, ph, tabs[r][c]);
-      const { x, y } = scatter(BX, BY, IMG, IMG, CW, CH, pw, ph);
+      const { x, y } = mobile
+        ? scatterMobile(pw, ph, ch)
+        : scatter(BX, BY, IMG, IMG, CW, ch, pw, ph);
       ps.push({ id: r*cols+c, col: c, row: r, x, y, pw, ph, tabs: tabs[r][c], ps: s, p2: new Path2D(s), placed: false });
     }
   }
@@ -74,38 +88,71 @@ function initPieces(cols, rows) {
   return ps;
 }
 
-export default function PuzzleCanvas({ svgStr, cols, rows, onComplete }) {
+export default function PuzzleCanvas({ svgStr, cols, rows, onComplete, uiTheme }) {
   const cvs = useRef(null), imgR = useRef(null), pcs = useRef([]), drag = useRef(null), rafR = useRef(null);
   const [loaded, setLoaded] = useState(false);
   const [placed, setPlaced] = useState(0);
   const [scale, setScale] = useState(1);
+  const scaleRef = useRef(1);
+  const prevMobRef = useRef(null);
   const total = cols * rows;
 
+  const isMobile = scale < MOB;
+  const ch = isMobile ? CH_M : CH_D;
+
   useEffect(() => {
-    const update = () => setScale(Math.min(1, window.innerWidth / CW));
+    const update = () => {
+      const s = Math.min(1, window.innerWidth / CW);
+      scaleRef.current = s;
+      setScale(s);
+    };
     update();
     window.addEventListener('resize', update);
     return () => window.removeEventListener('resize', update);
   }, []);
 
+  // Load image and init pieces
   useEffect(() => {
     const im = new Image();
-    im.onload = () => { imgR.current = im; pcs.current = initPieces(cols, rows); setLoaded(true); setPlaced(0); };
+    im.onload = () => {
+      const mob = scaleRef.current < MOB;
+      const effectiveCh = mob ? CH_M : CH_D;
+      imgR.current = im;
+      prevMobRef.current = mob;
+      pcs.current = initPieces(cols, rows, mob, effectiveCh);
+      setLoaded(true);
+      setPlaced(0);
+    };
     im.src = illUrl(svgStr);
   }, [svgStr, cols, rows]);
+
+  // Re-scatter pieces if layout switches between mobile/desktop
+  useEffect(() => {
+    if (!loaded) return;
+    if (prevMobRef.current === null || prevMobRef.current === isMobile) return;
+    prevMobRef.current = isMobile;
+    pcs.current = initPieces(cols, rows, isMobile, ch);
+  }, [isMobile, loaded, cols, rows, ch]);
 
   const draw = useCallback(() => {
     const el = cvs.current; if (!el || !imgR.current) return;
     const ctx = el.getContext('2d');
     const pw = IMG / cols, ph = IMG / rows;
-    ctx.clearRect(0, 0, CW, CH);
-    ctx.fillStyle = '#eae4db'; ctx.fillRect(0, 0, CW, CH);
+    const dark = uiTheme === 'dark';
+    const effectiveCh = el.height;
+    const mob = effectiveCh > CH_D;
 
-    ctx.fillStyle = 'rgba(150,130,190,.1)';
-    for (let x = 22; x < CW; x += 28) for (let y = 22; y < CH; y += 28) {
+    ctx.clearRect(0, 0, CW, effectiveCh);
+    ctx.fillStyle = dark ? '#12102a' : '#eae4db';
+    ctx.fillRect(0, 0, CW, effectiveCh);
+
+    // Dot grid
+    ctx.fillStyle = dark ? 'rgba(150,130,190,.12)' : 'rgba(150,130,190,.1)';
+    for (let x = 22; x < CW; x += 28) for (let y = 22; y < effectiveCh; y += 28) {
       ctx.beginPath(); ctx.arc(x, y, 1.1, 0, Math.PI * 2); ctx.fill();
     }
 
+    // Ghost board image + grid lines
     ctx.save(); ctx.globalAlpha = .1; ctx.drawImage(imgR.current, BX, BY, IMG, IMG); ctx.restore();
     ctx.save(); ctx.strokeStyle = 'rgba(140,120,190,.22)'; ctx.lineWidth = 1;
     for (let r = 0; r <= rows; r++) { ctx.beginPath(); ctx.moveTo(BX, BY + r*ph); ctx.lineTo(BX + IMG, BY + r*ph); ctx.stroke(); }
@@ -113,6 +160,21 @@ export default function PuzzleCanvas({ svgStr, cols, rows, onComplete }) {
     ctx.restore();
     ctx.strokeStyle = 'rgba(140,120,190,.38)'; ctx.lineWidth = 1.5; ctx.strokeRect(BX, BY, IMG, IMG);
 
+    // Mobile tray divider
+    if (mob) {
+      ctx.save();
+      ctx.strokeStyle = dark ? 'rgba(200,180,255,.14)' : 'rgba(140,120,190,.18)';
+      ctx.lineWidth = 1;
+      ctx.setLineDash([4, 10]);
+      ctx.beginPath();
+      ctx.moveTo(40, BY + IMG + 20);
+      ctx.lineTo(CW - 40, BY + IMG + 20);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.restore();
+    }
+
+    // Draw pieces
     const didx = drag.current?.idx;
     const dp = (p, sh) => {
       if (!imgR.current) return;
@@ -126,7 +188,7 @@ export default function PuzzleCanvas({ svgStr, cols, rows, onComplete }) {
     pcs.current.filter(p => p.placed).forEach(p => dp(p));
     pcs.current.filter((p, i) => !p.placed && i !== didx).forEach(p => dp(p));
     if (didx != null) dp(pcs.current[didx], true);
-  }, [cols, rows]);
+  }, [cols, rows, uiTheme]);
 
   useEffect(() => {
     if (!loaded) return;
@@ -150,8 +212,8 @@ export default function PuzzleCanvas({ svgStr, cols, rows, onComplete }) {
     const r = cvs.current.getBoundingClientRect();
     const src = e.touches ? e.touches[0] : e;
     return {
-      mx: (src.clientX - r.left) * (CW / r.width),
-      my: (src.clientY - r.top)  * (CH / r.height),
+      mx: (src.clientX - r.left) * (cvs.current.width  / r.width),
+      my: (src.clientY - r.top)  * (cvs.current.height / r.height),
     };
   };
 
@@ -184,13 +246,13 @@ export default function PuzzleCanvas({ svgStr, cols, rows, onComplete }) {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, width: '100%' }}>
-      <div className="cvs-wrap" style={{ position: 'relative', width: CW * scale, height: CH * scale, flexShrink: 0 }}>
-        <canvas ref={cvs} width={CW} height={CH}
+      <div className="cvs-wrap" style={{ position: 'relative', width: CW * scale, height: ch * scale, flexShrink: 0 }}>
+        <canvas ref={cvs} width={CW} height={ch}
           style={{ transform: `scale(${scale})`, transformOrigin: 'top left', display: 'block' }}
           onMouseDown={onDown} onMouseMove={onMove} onMouseUp={onUp} onMouseLeave={onUp}
           onTouchStart={onDown} onTouchMove={onMove} onTouchEnd={onUp} />
         {!loaded && (
-          <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#eae4db' }}>
+          <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: uiTheme === 'dark' ? '#12102a' : '#eae4db' }}>
             <span style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 22, color: 'var(--muted)', fontStyle: 'italic' }}>
               Preparing your puzzle…
             </span>
