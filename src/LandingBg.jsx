@@ -24,19 +24,32 @@ const GLINTS = [
   [1010, 625, 68, 4,  3.5, 4.3],
 ];
 
-function Petals({ count, dist, rx, ry, offset = 0, colors }) {
-  return Array.from({ length: count }, (_, i) => {
-    const angle = i * (360 / count) + offset;
-    const rad   = angle * Math.PI / 180;
-    const cx    = Math.sin(rad) * dist;
-    const cy    = -Math.cos(rad) * dist;
-    return (
-      <ellipse key={i} cx={cx} cy={cy} rx={rx} ry={ry}
-        fill={colors[i % colors.length]}
-        transform={`rotate(${angle},${cx},${cy})`}
-        opacity={0.9} />
-    );
-  });
+// Crown-style lotus — all petals emerge upward from a single base point.
+// Each petal is a pointed teardrop path rotated to its angle.
+// path = wide-based teardrop pointing straight up from origin
+const PETAL_CONFIGS = [
+  // [angleDeg, pathW, pathH, fill, opacity]  — symmetric pairs + centre
+  [ 80, 10, 30, '#bf7898', 0.80], [-80, 10, 30, '#bf7898', 0.80],
+  [ 56, 11, 36, '#d090aa', 0.86], [-56, 11, 36, '#d090aa', 0.86],
+  [ 30, 12, 43, '#dda8bc', 0.90], [-30, 12, 43, '#dda8bc', 0.90],
+  [  0, 13, 48, '#eabccc', 0.94],
+];
+function Lotus() {
+  return (
+    <>
+      {PETAL_CONFIGS.map(([angle, w, h, fill, op], i) => {
+        // Teardrop path: base at origin, tip at (0, -h)
+        const d = `M 0,5 C -${w},-2 -${w*.85},-${h*.55} 0,-${h} C ${w*.85},-${h*.55} ${w},-2 0,5 Z`;
+        return (
+          <path key={i} d={d} fill={fill} opacity={op}
+            transform={`rotate(${angle})`} />
+        );
+      })}
+      {/* Golden centre */}
+      <circle r={14} fill="#eaca38" opacity={0.92}/>
+      <circle r={8}  fill="#fae048" opacity={0.88}/>
+    </>
+  );
 }
 
 export default function LandingBg() {
@@ -129,14 +142,9 @@ export default function LandingBg() {
           </ellipse>
         ))}
 
-        {/* ── Lotus ── */}
+        {/* ── Lotus (crown style) ── */}
         <g transform={`translate(${LX},${LY})`}>
-          <Petals count={8} dist={34} rx={11} ry={21}
-            colors={['#e8b8c2','#d898b0']} />
-          <Petals count={6} dist={17} rx={7} ry={14} offset={22.5}
-            colors={['#ecc8d4']} />
-          <circle r={11} fill="#e8c838" opacity={0.92}/>
-          <circle r={6.5} fill="#f8dc44" opacity={0.88}/>
+          <Lotus />
         </g>
 
       </svg>

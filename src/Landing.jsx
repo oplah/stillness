@@ -38,9 +38,14 @@ export default function Landing({ onStart }) {
         </div>
         <h1
           className={`big-title fade-item${vis[1] ? ' vis' : ''}`}
-          style={{ color: '#ffffff' }}
+          style={{
+            color: '#ffffff',
+            fontFamily: "'Nunito', sans-serif",
+            fontWeight: 900,
+            letterSpacing: '-0.01em',
+          }}
         >
-          Still<em style={{ color: 'rgba(255,190,220,0.9)' }}>ness</em>
+          Cozy<em style={{ color: 'rgba(255,190,215,0.95)', fontStyle: 'italic', fontWeight: 800 }}>puzzly</em>
         </h1>
         <p
           className={`tagline fade-item${vis[2] ? ' vis' : ''}`}
