@@ -9,7 +9,7 @@ const DIFF = { easy: [4, 4], medium: [5, 5], hard: [6, 6] };
 const THEME_LABELS = { nature: 'Nature', animals: 'Animals', things: 'Architecture' };
 
 export default function App() {
-  const [screen, setScreen] = useState(() => localStorage.getItem('stn_screen') || 'landing');
+  const [screen, setScreen] = useState('landing'); // always start at landing on refresh
   const [theme, setTheme] = useState(() => localStorage.getItem('stn_theme') || 'nature');
   const [diff, setDiff] = useState(() => localStorage.getItem('stn_diff') || 'medium');
   const [curSvg, setCurSvg] = useState(null);
@@ -32,7 +32,7 @@ export default function App() {
     localStorage.setItem('stn_sound', next ? 'on' : 'off');
   };
 
-  const go = (s) => { setScreen(s); setComplete(false); localStorage.setItem('stn_screen', s); };
+  const go = (s) => { setScreen(s); setComplete(false); };
 
   const begin = (t, d) => {
     const svg = genIll(t);

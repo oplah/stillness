@@ -14,7 +14,16 @@ const STARS = [
   [1300,215, 7,  '#f0daa0', 3.8, 4.7],
 ];
 
-// Lotus helper — ellipse petals arranged radially
+// Shimmer glints on the water surface: [x, y, rx, ry, delayS, durS]
+const GLINTS = [
+  [175,  548, 92, 6,  0,   3.8],
+  [475,  568, 72, 5,  1.2, 4.2],
+  [955,  552, 80, 5,  2.0, 4.5],
+  [1255, 542, 68, 5,  1.4, 3.8],
+  [340,  618, 62, 4,  2.8, 5.0],
+  [1010, 625, 68, 4,  3.5, 4.3],
+];
+
 function Petals({ count, dist, rx, ry, offset = 0, colors }) {
   return Array.from({ length: count }, (_, i) => {
     const angle = i * (360 / count) + offset;
@@ -31,7 +40,7 @@ function Petals({ count, dist, rx, ry, offset = 0, colors }) {
 }
 
 export default function LandingBg() {
-  const LX = 720, LY = 548; // lotus centre
+  const LX = 720, LY = 660; // lotus moved lower so it sits below the CTA
 
   return (
     <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none' }}>
@@ -47,7 +56,7 @@ export default function LandingBg() {
           </linearGradient>
           <linearGradient id="ldWater" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%"   stopColor="#deb4bc" stopOpacity="0"/>
-            <stop offset="16%"  stopColor="#eac4cc" stopOpacity="0.82"/>
+            <stop offset="14%"  stopColor="#eac4cc" stopOpacity="0.82"/>
             <stop offset="100%" stopColor="#f6e0e6" stopOpacity="0.97"/>
           </linearGradient>
         </defs>
@@ -55,7 +64,7 @@ export default function LandingBg() {
         {/* ── Sky ── */}
         <rect width="1440" height="900" fill="url(#ldSky)"/>
 
-        {/* ── Twinkling diamond stars (SMIL animate, no CSS needed) ── */}
+        {/* ── Twinkling diamond stars ── */}
         {STARS.map(([x, y, s, c, delay, dur], i) => (
           <g key={i} transform={`translate(${x},${y}) rotate(45)`}>
             <rect x={-s/2} y={-s/2} width={s} height={s} fill={c} opacity="0.08">
@@ -66,12 +75,12 @@ export default function LandingBg() {
           </g>
         ))}
 
-        {/* ── Left mountains (back → front, lighter → darker) ── */}
+        {/* ── Left mountains (back → front) ── */}
         <polygon points="0,492 128,322 295,492"    fill="#4c2250" opacity="0.95"/>
         <polygon points="75,492 262,365 448,492"   fill="#3c1842" opacity="0.98"/>
         <polygon points="-15,492 38,442 132,492"   fill="#2e1034" opacity="1"/>
 
-        {/* ── Right mountains (mirrored) ── */}
+        {/* ── Right mountains ── */}
         <polygon points="1440,492 1312,322 1145,492" fill="#4c2250" opacity="0.95"/>
         <polygon points="1365,492 1178,365 992,492"  fill="#3c1842" opacity="0.98"/>
         <polygon points="1455,492 1402,442 1308,492" fill="#2e1034" opacity="1"/>
@@ -79,23 +88,53 @@ export default function LandingBg() {
         {/* ── Water surface ── */}
         <rect x="0" y="478" width="1440" height="422" fill="url(#ldWater)"/>
 
-        {/* ── Ripples ── */}
-        <ellipse cx={LX} cy={LY+22} rx={108} ry={22}
-          fill="none" stroke="rgba(198,152,170,0.55)" strokeWidth="1.5"/>
-        <ellipse cx={LX} cy={LY+22} rx={180} ry={37}
-          fill="none" stroke="rgba(198,152,170,0.38)" strokeWidth="1.2"/>
-        <ellipse cx={LX} cy={LY+22} rx={270} ry={56}
-          fill="none" stroke="rgba(198,152,170,0.22)" strokeWidth="1"/>
+        {/* ── Gentle wave lines at the horizon ── */}
+        <path fill="none" stroke="rgba(255,232,240,0.14)" strokeWidth="1.5">
+          <animate attributeName="d"
+            values="M 0 505 Q 360 494 720 505 Q 1080 516 1440 505;
+                    M 0 505 Q 360 516 720 505 Q 1080 494 1440 505;
+                    M 0 505 Q 360 494 720 505 Q 1080 516 1440 505"
+            dur="7s" repeatCount="indefinite"/>
+        </path>
+        <path fill="none" stroke="rgba(255,232,240,0.09)" strokeWidth="1">
+          <animate attributeName="d"
+            values="M 0 524 Q 360 514 720 524 Q 1080 534 1440 524;
+                    M 0 524 Q 360 534 720 524 Q 1080 514 1440 524;
+                    M 0 524 Q 360 514 720 524 Q 1080 534 1440 524"
+            dur="9s" begin="1.5s" repeatCount="indefinite"/>
+        </path>
+
+        {/* ── Shimmer glints on water ── */}
+        {GLINTS.map(([x, y, rx, ry, delay, dur], i) => (
+          <ellipse key={i} cx={x} cy={y} rx={rx} ry={ry}
+            fill="rgba(255,238,244,0)" stroke="none">
+            <animate attributeName="fill"
+              values="rgba(255,238,244,0);rgba(255,238,244,0.22);rgba(255,238,244,0)"
+              dur={`${dur}s`} begin={`${delay}s`} repeatCount="indefinite"/>
+          </ellipse>
+        ))}
+
+        {/* ── Expanding pond ripples (staggered, loop continuously) ── */}
+        {[0, 1.67, 3.33].map((delay, i) => (
+          <ellipse key={i} cx={LX} cy={LY + 18}
+            fill="none" stroke="rgba(198,152,170,0.65)" strokeWidth="1.3">
+            <animate attributeName="rx" values="18;340"
+              dur="5s" begin={`${delay}s`} repeatCount="indefinite"
+              calcMode="spline" keySplines="0.25 0.1 0.75 0.9"/>
+            <animate attributeName="ry" values="5;68"
+              dur="5s" begin={`${delay}s`} repeatCount="indefinite"
+              calcMode="spline" keySplines="0.25 0.1 0.75 0.9"/>
+            <animate attributeName="opacity" values="0.65;0"
+              dur="5s" begin={`${delay}s`} repeatCount="indefinite"/>
+          </ellipse>
+        ))}
 
         {/* ── Lotus ── */}
         <g transform={`translate(${LX},${LY})`}>
-          {/* Outer ring — 8 petals */}
           <Petals count={8} dist={34} rx={11} ry={21}
             colors={['#e8b8c2','#d898b0']} />
-          {/* Inner ring — 6 petals, offset 22.5° */}
           <Petals count={6} dist={17} rx={7} ry={14} offset={22.5}
             colors={['#ecc8d4']} />
-          {/* Centre */}
           <circle r={11} fill="#e8c838" opacity={0.92}/>
           <circle r={6.5} fill="#f8dc44" opacity={0.88}/>
         </g>
