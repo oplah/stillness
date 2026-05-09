@@ -1,116 +1,106 @@
-const BIRDS = [
-  { top: '12%', dur: '42s', delay: '0s',  s: 22 },
-  { top: '7%',  dur: '54s', delay: '11s', s: 17 },
-  { top: '22%', dur: '37s', delay: '23s', s: 20 },
-  { top: '6%',  dur: '60s', delay: '6s',  s: 15 },
-  { top: '28%', dur: '46s', delay: '32s', s: 24 },
-  { top: '17%', dur: '34s', delay: '44s', s: 18 },
-  { top: '10%', dur: '50s', delay: '18s', s: 16 },
-];
-
-const LEAVES = [
-  { x: '22%', y: '62%', size: 18, color: 'rgba(255,200,230,0.5)', delay: '0s',  dur: '8s'  },
-  { x: '68%', y: '55%', size: 14, color: 'rgba(200,180,255,0.5)', delay: '3s',  dur: '10s' },
-  { x: '44%', y: '70%', size: 16, color: 'rgba(180,220,255,0.45)', delay: '6s', dur: '9s'  },
-];
-
-// Stars at deterministic positions
+// Deterministic star positions: [x, y, size, color, delayS, durS]
 const STARS = [
-  [72,28],[210,55],[380,18],[540,42],[720,12],[890,35],[1050,22],[1230,48],[1380,15],
-  [140,80],[450,68],[680,88],[900,60],[1160,75],[1340,85],[300,30],[820,18],[1000,44],
+  [188, 72,  13, '#d4b870', 0,   3.8],
+  [435, 44,  9,  '#f0daa0', 1.2, 4.2],
+  [698, 24,  15, '#d4b870', 0.4, 3.5],
+  [978, 51,  10, '#f0daa0', 2.1, 4.8],
+  [1240,35,  12, '#d4b870', 1.7, 3.2],
+  [314, 132, 8,  '#f0daa0', 2.8, 5.1],
+  [558, 158, 8,  '#d4b870', 0.9, 4.0],
+  [850, 126, 9,  '#f0daa0', 3.3, 3.7],
+  [1100,155, 8,  '#d4b870', 1.5, 4.5],
+  [1356,96,  10, '#f0daa0', 2.4, 3.9],
+  [140, 192, 7,  '#d4b870', 4.0, 5.5],
+  [1300,215, 7,  '#f0daa0', 3.8, 4.7],
 ];
+
+// Lotus helper — ellipse petals arranged radially
+function Petals({ count, dist, rx, ry, offset = 0, colors }) {
+  return Array.from({ length: count }, (_, i) => {
+    const angle = i * (360 / count) + offset;
+    const rad   = angle * Math.PI / 180;
+    const cx    = Math.sin(rad) * dist;
+    const cy    = -Math.cos(rad) * dist;
+    return (
+      <ellipse key={i} cx={cx} cy={cy} rx={rx} ry={ry}
+        fill={colors[i % colors.length]}
+        transform={`rotate(${angle},${cx},${cy})`}
+        opacity={0.9} />
+    );
+  });
+}
 
 export default function LandingBg() {
+  const LX = 720, LY = 548; // lotus centre
+
   return (
     <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none' }}>
       <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice"
         style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}>
         <defs>
-          <linearGradient id="bgsky" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%"   stopColor="#140c38"/>
-            <stop offset="30%"  stopColor="#2e1470"/>
-            <stop offset="62%"  stopColor="#a03878"/>
-            <stop offset="100%" stopColor="#e8804a"/>
+          <linearGradient id="ldSky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stopColor="#1e0828"/>
+            <stop offset="20%"  stopColor="#5a2258"/>
+            <stop offset="50%"  stopColor="#9a5074"/>
+            <stop offset="78%"  stopColor="#c78898"/>
+            <stop offset="100%" stopColor="#deb4bc"/>
           </linearGradient>
-          <radialGradient id="bgglow" cx="50%" cy="68%" r="40%">
-            <stop offset="0%"   stopColor="#f0904a" stopOpacity=".45"/>
-            <stop offset="100%" stopColor="#2e1470" stopOpacity="0"/>
-          </radialGradient>
-          <linearGradient id="bgfog" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%"   stopColor="#0a0820" stopOpacity="0"/>
-            <stop offset="100%" stopColor="#0a0820" stopOpacity=".75"/>
+          <linearGradient id="ldWater" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stopColor="#deb4bc" stopOpacity="0"/>
+            <stop offset="16%"  stopColor="#eac4cc" stopOpacity="0.82"/>
+            <stop offset="100%" stopColor="#f6e0e6" stopOpacity="0.97"/>
           </linearGradient>
         </defs>
 
-        {/* Sky */}
-        <rect width="1440" height="900" fill="url(#bgsky)"/>
-        <rect width="1440" height="900" fill="url(#bgglow)"/>
+        {/* ── Sky ── */}
+        <rect width="1440" height="900" fill="url(#ldSky)"/>
 
-        {/* Stars */}
-        {STARS.map(([x, y], i) => (
-          <circle key={i} cx={x} cy={y} r={i % 3 === 0 ? 1.5 : 1} fill="white" opacity={0.25 + (i % 4) * 0.1}/>
+        {/* ── Twinkling diamond stars (SMIL animate, no CSS needed) ── */}
+        {STARS.map(([x, y, s, c, delay, dur], i) => (
+          <g key={i} transform={`translate(${x},${y}) rotate(45)`}>
+            <rect x={-s/2} y={-s/2} width={s} height={s} fill={c} opacity="0.08">
+              <animate attributeName="opacity"
+                values="0.08;0.88;0.08"
+                dur={`${dur}s`} begin={`${delay}s`} repeatCount="indefinite"/>
+            </rect>
+          </g>
         ))}
 
-        {/* Far mountains — dark purple zigzag */}
-        <polygon
-          points="0,540 80,430 160,540 240,408 320,540 420,395 520,540 620,415 720,385 820,415 920,540 1020,400 1120,540 1220,410 1320,540 1440,420 1440,900 0,900"
-          fill="#200e58"/>
+        {/* ── Left mountains (back → front, lighter → darker) ── */}
+        <polygon points="0,492 128,322 295,492"    fill="#4c2250" opacity="0.95"/>
+        <polygon points="75,492 262,365 448,492"   fill="#3c1842" opacity="0.98"/>
+        <polygon points="-15,492 38,442 132,492"   fill="#2e1034" opacity="1"/>
 
-        {/* Mid mountains */}
-        <polygon
-          points="0,620 140,500 280,620 420,475 560,620 700,468 840,620 980,478 1120,620 1280,490 1440,610 1440,900 0,900"
-          fill="#180a40"/>
+        {/* ── Right mountains (mirrored) ── */}
+        <polygon points="1440,492 1312,322 1145,492" fill="#4c2250" opacity="0.95"/>
+        <polygon points="1365,492 1178,365 992,492"  fill="#3c1842" opacity="0.98"/>
+        <polygon points="1455,492 1402,442 1308,492" fill="#2e1034" opacity="1"/>
 
-        {/* Stepped terraces */}
-        <rect x="0"   y="655" width="1440" height="28" rx="3" fill="#1a2c5a" opacity=".9"/>
-        <rect x="80"  y="632" width="1280" height="24" rx="3" fill="#1c3468" opacity=".85"/>
-        <rect x="220" y="610" width="1000" height="22" rx="3" fill="#1a2c60" opacity=".8"/>
-        <rect x="360" y="590" width="720"  height="20" rx="3" fill="#182870" opacity=".75"/>
+        {/* ── Water surface ── */}
+        <rect x="0" y="478" width="1440" height="422" fill="url(#ldWater)"/>
 
-        {/* Foreground dark base */}
-        <rect x="0" y="683" width="1440" height="217" fill="#0a0820"/>
+        {/* ── Ripples ── */}
+        <ellipse cx={LX} cy={LY+22} rx={108} ry={22}
+          fill="none" stroke="rgba(198,152,170,0.55)" strokeWidth="1.5"/>
+        <ellipse cx={LX} cy={LY+22} rx={180} ry={37}
+          fill="none" stroke="rgba(198,152,170,0.38)" strokeWidth="1.2"/>
+        <ellipse cx={LX} cy={LY+22} rx={270} ry={56}
+          fill="none" stroke="rgba(198,152,170,0.22)" strokeWidth="1"/>
 
-        {/* Reflection shimmer lines */}
-        <line x1="0" y1="726" x2="1440" y2="726" stroke="#5030a0" strokeWidth="1.2" opacity=".35"/>
-        <line x1="0" y1="758" x2="1440" y2="758" stroke="#5030a0" strokeWidth="1"   opacity=".25"/>
-        <line x1="0" y1="792" x2="1440" y2="792" stroke="#5030a0" strokeWidth="1"   opacity=".15"/>
+        {/* ── Lotus ── */}
+        <g transform={`translate(${LX},${LY})`}>
+          {/* Outer ring — 8 petals */}
+          <Petals count={8} dist={34} rx={11} ry={21}
+            colors={['#e8b8c2','#d898b0']} />
+          {/* Inner ring — 6 petals, offset 22.5° */}
+          <Petals count={6} dist={17} rx={7} ry={14} offset={22.5}
+            colors={['#ecc8d4']} />
+          {/* Centre */}
+          <circle r={11} fill="#e8c838" opacity={0.92}/>
+          <circle r={6.5} fill="#f8dc44" opacity={0.88}/>
+        </g>
 
-        {/* Floating diamonds */}
-        <rect x="700"  y="275" width="22" height="22" fill="#f0c860" opacity=".55" transform="rotate(45,711,286)"/>
-        <rect x="195"  y="315" width="14" height="14" fill="#d8a8f0" opacity=".5"  transform="rotate(45,202,322)"/>
-        <rect x="1205" y="295" width="13" height="13" fill="#f0b870" opacity=".45" transform="rotate(45,1211,301)"/>
-        <rect x="490"  y="198" width="10" height="10" fill="#a8c8f0" opacity=".42" transform="rotate(45,495,203)"/>
-        <rect x="960"  y="245" width="10" height="10" fill="#f0a0c0" opacity=".4"  transform="rotate(45,965,250)"/>
-        <rect x="340"  y="160" width="8"  height="8"  fill="#c0e0f0" opacity=".35" transform="rotate(45,344,164)"/>
-        <rect x="1080" y="180" width="8"  height="8"  fill="#e0c0f0" opacity=".32" transform="rotate(45,1084,184)"/>
-
-        {/* Bottom fog overlay */}
-        <rect width="1440" height="900" fill="url(#bgfog)"/>
       </svg>
-
-      {/* Animated birds — white */}
-      {BIRDS.map((b, i) => (
-        <div key={i} style={{
-          position: 'absolute', top: b.top, left: 0,
-          animation: `landBird ${b.dur} ${b.delay} linear infinite`,
-        }}>
-          <svg width={b.s} height={b.s * 0.5} viewBox="0 0 28 14">
-            <path d="M0 7 Q7 2 14 5 Q21 2 28 7" stroke="rgba(255,255,255,0.6)" strokeWidth="1.5" fill="none" strokeLinecap="round"/>
-          </svg>
-        </div>
-      ))}
-
-      {/* Drifting leaf shapes */}
-      {LEAVES.map((l, i) => (
-        <div key={i} style={{
-          position: 'absolute', left: l.x, top: l.y,
-          animation: `leafDrift ${l.dur} ${l.delay} ease-in-out infinite`,
-        }}>
-          <svg width={l.size} height={l.size} viewBox="0 0 20 20">
-            <ellipse cx="10" cy="10" rx="5" ry="9" fill={l.color} transform="rotate(-30,10,10)"/>
-          </svg>
-        </div>
-      ))}
     </div>
   );
 }

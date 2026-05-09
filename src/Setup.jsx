@@ -1,19 +1,18 @@
 import { useState } from 'react';
-import { previewSvg } from './palettes';
+import { genPreview } from './palettes';
 
 const THEME_LABELS = { nature: 'Nature', animals: 'Animals', things: 'Architecture' };
 const DLABELS = { easy: 'Gentle · 16 pieces', medium: 'Calm · 25 pieces', hard: 'Serene · 36 pieces' };
 
-// Built once at module level — static imported SVGs, no need for state
-const PREVIEWS = {
-  nature:  previewSvg('nature'),
-  animals: previewSvg('animals'),
-  things:  previewSvg('things'),
-};
-
 export default function Setup({ onBegin, onBack, uiTheme, onToggleUi }) {
   const [theme, setTheme] = useState('nature');
   const [diff, setDiff] = useState('medium');
+  // Programmatic-only previews — consistent per session, no CSS-class render issues
+  const [prev] = useState(() => ({
+    nature:  genPreview('nature'),
+    animals: genPreview('animals'),
+    things:  genPreview('things'),
+  }));
 
   return (
     <div className="screen">
@@ -27,7 +26,7 @@ export default function Setup({ onBegin, onBack, uiTheme, onToggleUi }) {
         <div className="theme-grid">
           {['nature', 'animals', 'things'].map(t => (
             <div key={t} className={`theme-card${theme === t ? ' sel' : ''}`} onClick={() => setTheme(t)}>
-              <div dangerouslySetInnerHTML={{ __html: PREVIEWS[t] }} style={{ lineHeight: 0 }} />
+              <div dangerouslySetInnerHTML={{ __html: prev[t] }} style={{ lineHeight: 0 }} />
               <div className="tc-label">{THEME_LABELS[t]}</div>
             </div>
           ))}

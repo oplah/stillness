@@ -668,6 +668,15 @@ const VARIANTS = {
   ],
 };
 
+// Preview uses only the first 4 programmatic variants (no uploaded SVGs),
+// so thumbnails are always colourful and render without CSS-class issues.
+export function genPreview(theme) {
+  const p = PAL_GENS[theme]();
+  const id = uid();
+  const vars = VARIANTS[theme].slice(0, 4);
+  return vars[Math.floor(Math.random() * vars.length)](p, id);
+}
+
 export function genIll(theme, id) {
   id = id || uid();
   const p = PAL_GENS[theme]();

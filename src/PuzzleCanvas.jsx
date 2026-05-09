@@ -7,17 +7,6 @@ function getAudioCtx(ref) {
   if (ref.current.state === 'suspended') ref.current.resume();
   return ref.current;
 }
-// Soft airy tick for hover
-function playHover(ctx) {
-  const g = ctx.createGain(), o = ctx.createOscillator();
-  o.connect(g); g.connect(ctx.destination);
-  o.type = 'sine'; o.frequency.value = 700;
-  const t = ctx.currentTime;
-  g.gain.setValueAtTime(0, t);
-  g.gain.linearRampToValueAtTime(0.06, t + 0.006);
-  g.gain.exponentialRampToValueAtTime(0.001, t + 0.045);
-  o.start(t); o.stop(t + 0.05);
-}
 // Satisfying wooden-click for piece placement
 function playSnap(ctx) {
   const t = ctx.currentTime;
@@ -37,6 +26,31 @@ function playSnap(ctx) {
   g2.gain.setValueAtTime(0.09, t);
   g2.gain.exponentialRampToValueAtTime(0.001, t + 0.055);
   o2.start(t); o2.stop(t + 0.06);
+}
+// Ascending sparkle chime for puzzle completion
+function playComplete(ctx) {
+  const t = ctx.currentTime;
+  // Five-note ascending pentatonic (C5 E5 G5 C6 E6)
+  [523.25, 659.25, 783.99, 1046.5, 1318.5].forEach((freq, i) => {
+    const start = t + i * 0.11;
+    const g = ctx.createGain(), o = ctx.createOscillator();
+    o.connect(g); g.connect(ctx.destination);
+    o.type = 'sine'; o.frequency.value = freq;
+    g.gain.setValueAtTime(0, start);
+    g.gain.linearRampToValueAtTime(0.2, start + 0.02);
+    g.gain.exponentialRampToValueAtTime(0.001, start + 0.7);
+    o.start(start); o.stop(start + 0.72);
+  });
+  // Sustain chord ring at the end
+  [523.25, 659.25, 783.99].forEach((freq) => {
+    const start = t + 0.62;
+    const g = ctx.createGain(), o = ctx.createOscillator();
+    o.connect(g); g.connect(ctx.destination);
+    o.type = 'sine'; o.frequency.value = freq;
+    g.gain.setValueAtTime(0.11, start);
+    g.gain.exponentialRampToValueAtTime(0.001, start + 1.4);
+    o.start(start); o.stop(start + 1.4);
+  });
 }
 
 const CW = 920, TAB = 0.26;
@@ -145,7 +159,6 @@ function initPieces(cols, rows, layout) {
 export default function PuzzleCanvas({ svgStr, cols, rows, onComplete, uiTheme, soundEnabled }) {
   const cvs = useRef(null), imgR = useRef(null), pcs = useRef([]), drag = useRef(null), rafR = useRef(null);
   const audioCtxRef = useRef(null);
-  const hoverIdxRef = useRef(-1);   // last piece index under cursor (for hover sound)
   const [loaded, setLoaded] = useState(false);
   const [placed, setPlaced] = useState(0);
   const [scale, setScale] = useState(1);
@@ -279,23 +292,11 @@ export default function PuzzleCanvas({ svgStr, cols, rows, onComplete, uiTheme, 
     const i = hit(mx, my); if (i < 0) return;
     drag.current = { idx: i, ox: mx - pcs.current[i].x, oy: my - pcs.current[i].y };
     cvs.current.classList.add('drag');
-    // Touch pickup sound (replaces hover which doesn't exist on touch)
-    if (soundEnabled && e.touches) {
-      try { playHover(getAudioCtx(audioCtxRef)); } catch (_) {}
-    }
   };
   const onMove = (e) => {
     e.preventDefault();
-    const { mx, my } = xy(e);
-    // Hover sound on desktop (fires when cursor enters a new unplaced piece)
-    if (!drag.current && soundEnabled && !e.touches) {
-      const i = hit(mx, my);
-      if (i !== hoverIdxRef.current) {
-        hoverIdxRef.current = i;
-        if (i >= 0) { try { playHover(getAudioCtx(audioCtxRef)); } catch (_) {} }
-      }
-    }
     if (!drag.current) return;
+    const { mx, my } = xy(e);
     const p = pcs.current[drag.current.idx];
     p.x = mx - drag.current.ox; p.y = my - drag.current.oy;
   };
@@ -311,7 +312,10 @@ export default function PuzzleCanvas({ svgStr, cols, rows, onComplete, uiTheme, 
       if (navigator.vibrate) navigator.vibrate(14);
       const n = pcs.current.filter(q => q.placed).length;
       setPlaced(n);
-      if (n === total) setTimeout(onComplete, 800);
+      if (n === total) {
+        if (soundEnabled) { try { playComplete(getAudioCtx(audioCtxRef)); } catch (_) {} }
+        setTimeout(onComplete, 800);
+      }
     }
     drag.current = null; cvs.current?.classList.remove('drag');
   };
