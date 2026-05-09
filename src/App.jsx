@@ -15,6 +15,7 @@ export default function App() {
   const [curSvg, setCurSvg] = useState(null);
   const [complete, setComplete] = useState(false);
   const [uiTheme, setUiTheme] = useState(() => localStorage.getItem('stn_ui') || 'light');
+  const [soundOn, setSoundOn] = useState(() => localStorage.getItem('stn_sound') !== 'off');
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', uiTheme);
@@ -24,6 +25,11 @@ export default function App() {
     const next = uiTheme === 'light' ? 'dark' : 'light';
     setUiTheme(next);
     localStorage.setItem('stn_ui', next);
+  };
+  const toggleSound = () => {
+    const next = !soundOn;
+    setSoundOn(next);
+    localStorage.setItem('stn_sound', next ? 'on' : 'off');
   };
 
   const go = (s) => { setScreen(s); setComplete(false); localStorage.setItem('stn_screen', s); };
@@ -56,7 +62,10 @@ export default function App() {
               <span className="puz-title">{THEME_LABELS[theme]}</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-              <button className="btn btn-ghost" onClick={restart} style={{ fontSize: 12 }}>↻ <span className="btn-label">New variation</span></button>
+              <button className="btn btn-ghost btn-refresh" onClick={restart}>↻ <span className="btn-label">New variation</span></button>
+              <button className="theme-toggle" onClick={toggleSound} title={soundOn ? 'Mute sounds' : 'Enable sounds'}>
+                {soundOn ? '🔊' : '🔇'}
+              </button>
               <button className="theme-toggle" onClick={toggleUi}>
                 {uiTheme === 'light' ? '☽' : '☀'} <span className="toggle-label">{uiTheme === 'light' ? 'Dark' : 'Light'}</span>
               </button>
@@ -69,6 +78,7 @@ export default function App() {
               cols={cols}
               rows={rows}
               uiTheme={uiTheme}
+              soundEnabled={soundOn}
               onComplete={() => setComplete(true)}
             />
           )}

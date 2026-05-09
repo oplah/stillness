@@ -113,6 +113,7 @@ canvas.drag { cursor: grabbing; }
   .puz-title { font-size: 15px; }
   .theme-toggle { padding: 7px 10px; }
   .btn-ghost { letter-spacing: .08em; }
+  .btn-refresh { font-size: 20px; padding: 6px 10px; }
 }
 
 /* Complete */

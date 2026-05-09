@@ -697,3 +697,24 @@ function inlineStyles(svgStr) {
 export function illUrl(svgStr) {
   return `data:image/svg+xml,${encodeURIComponent(inlineStyles(svgStr))}`;
 }
+
+// Normalise an SVG string for use as a responsive inline thumbnail.
+// Ensures viewBox is present (built from width/height if needed) and
+// replaces fixed pixel dimensions with 100% so CSS can scale it.
+export function thumbnailSvg(svgStr) {
+  let s = svgStr;
+  if (!/\bviewBox\s*=/i.test(s)) {
+    const wm = s.match(/\bwidth="([\d.]+)"/);
+    const hm = s.match(/\bheight="([\d.]+)"/);
+    if (wm && hm) s = s.replace(/<svg\b/, `<svg viewBox="0 0 ${wm[1]} ${hm[1]}"`);
+  }
+  s = s.replace(/(<svg\b[^>]*)\bwidth="[^"]*"/, '$1width="100%"');
+  s = s.replace(/(<svg\b[^>]*)\bheight="[^"]*"/, '$1height="100%"');
+  return s;
+}
+
+// Fixed, consistent preview SVGs for the selection screen (one per theme).
+export function previewSvg(theme) {
+  const map = { nature: nature1Svg, animals: animal1Svg, things: architecture1Svg };
+  return thumbnailSvg(map[theme] || '');
+}
