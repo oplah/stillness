@@ -62,7 +62,7 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
 .eyebrow { font-size: 11px; letter-spacing: .25em; text-transform: uppercase; color: var(--muted); }
 .big-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(54px, 8vw, 84px); font-weight: 300; line-height: 1.04; margin: 14px 0 22px; }
 .big-title em { font-style: italic; color: var(--muted); }
-.tagline { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-style: italic; color: var(--muted); line-height: 1.7; margin-bottom: 44px; }
+.tagline { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 300; color: var(--muted); line-height: 1.85; margin-bottom: 40px; letter-spacing: .04em; }
 .landing-cta { display: flex; flex-direction: column; align-items: center; gap: 14px; }
 .sub-note { font-size: 12px; color: var(--muted); letter-spacing: .05em; margin-top: 4px; }
 
@@ -82,7 +82,7 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
 
 /* Puzzle */
 .puz-header { position: relative; z-index: 10; display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 960px; padding: 18px 24px 10px; }
-.puz-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 300; color: var(--muted); }
+.puz-title { font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 400; letter-spacing: .06em; color: var(--muted); }
 .cvs-wrap { border-radius: 16px; overflow: hidden; box-shadow: 0 20px 60px rgba(60,50,100,.1); }
 canvas { display: block; cursor: grab; touch-action: none; }
 canvas.drag { cursor: grabbing; }

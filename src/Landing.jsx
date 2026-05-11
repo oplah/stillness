@@ -30,34 +30,37 @@ export default function Landing({ onStart }) {
     <div className="screen" style={{ flexDirection: 'column' }}>
       <LandingBg />
       <div className="landing-content">
-        <p
-          className={`fade-item${vis[0] ? ' vis' : ''}`}
-          style={{ fontSize: '13px', letterSpacing: '.04em', color: 'rgba(255,255,255,0.68)', marginBottom: '10px', fontWeight: 300 }}
-        >
-          a cozy place for thoughtful puzzles and peaceful play
-        </p>
+
+        {/* Logo */}
         <h1
-          className={`big-title fade-item${vis[1] ? ' vis' : ''}`}
-          style={{
-            color: '#ffffff',
-            fontFamily: "'Nunito', sans-serif",
-            fontWeight: 900,
-            letterSpacing: '-0.01em',
-          }}
+          className={`big-title fade-item${vis[0] ? ' vis' : ''}`}
+          style={{ color: '#ffffff', fontFamily: "'Nunito', sans-serif", fontWeight: 900, letterSpacing: '-0.01em', marginBottom: '10px' }}
         >
           Cozy<em style={{ color: 'rgba(255,190,215,0.95)', fontStyle: 'italic', fontWeight: 800 }}>puzzly</em>
         </h1>
+
+        {/* Subtitle — below the logo */}
+        <p
+          className={`fade-item${vis[1] ? ' vis' : ''}`}
+          style={{ fontSize: '13px', letterSpacing: '.04em', color: 'rgba(255,255,255,0.68)', marginBottom: '28px', fontWeight: 300 }}
+        >
+          a cozy place for thoughtful puzzles and peaceful play
+        </p>
+
+        {/* Quote */}
         <p
           className={`tagline fade-item${vis[2] ? ' vis' : ''}`}
-          style={{ color: 'rgba(255,255,255,0.8)' }}
+          style={{ color: 'rgba(255,255,255,0.75)' }}
         >
           "{aff}"
         </p>
+
+        {/* CTA */}
         <div className={`landing-cta fade-item${vis[3] ? ' vis' : ''}`}>
           <button
             className="btn btn-pill"
             onClick={onStart}
-            style={{ background: 'rgba(255,255,255,0.95)', color: '#2e1470', letterSpacing: '.12em' }}
+            style={{ letterSpacing: '.12em' }}
           >
             Begin a puzzle
           </button>
@@ -65,6 +68,7 @@ export default function Landing({ onStart }) {
             No accounts · No scores · Just presence
           </p>
         </div>
+
       </div>
     </div>
   );
