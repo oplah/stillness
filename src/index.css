@@ -58,7 +58,7 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
 }
 
 /* Landing */
-.landing-content { position: relative; text-align: center; max-width: 520px; padding: 40px; z-index: 2; }
+.landing-content { position: relative; text-align: center; max-width: 680px; padding: 40px; z-index: 2; }
 .eyebrow { font-size: 11px; letter-spacing: .25em; text-transform: uppercase; color: var(--muted); }
 .big-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(54px, 8vw, 84px); font-weight: 300; line-height: 1.04; margin: 14px 0 22px; }
 .big-title em { font-style: italic; color: var(--muted); }

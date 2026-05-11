@@ -1,7 +1,7 @@
 export default function Complete({ svgStr, onRestart, onNew }) {
   return (
     <div className="complete-ov">
-      <div className="comp-title">You found <em>stillness.</em></div>
+      <div className="comp-title">You found stillness.</div>
       <div className="comp-ill">
         <div dangerouslySetInnerHTML={{ __html: svgStr }} style={{ width: 280, lineHeight: 0 }} />
       </div>
