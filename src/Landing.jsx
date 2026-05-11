@@ -34,7 +34,7 @@ export default function Landing({ onStart }) {
         {/* Logo */}
         <h1
           className={`big-title fade-item${vis[0] ? ' vis' : ''}`}
-          style={{ color: '#ffffff', fontFamily: "'Nunito', sans-serif", fontWeight: 900, letterSpacing: '-0.01em', marginBottom: '10px' }}
+          style={{ color: '#ffffff', fontFamily: "'Nunito', sans-serif", fontWeight: 900, letterSpacing: '-0.01em', marginBottom: '20px' }}
         >
           Cozy<em style={{ color: 'rgba(255,190,215,0.95)', fontStyle: 'italic', fontWeight: 800 }}>puzzly</em>
         </h1>
@@ -42,7 +42,7 @@ export default function Landing({ onStart }) {
         {/* Subtitle — below the logo */}
         <p
           className={`fade-item${vis[1] ? ' vis' : ''}`}
-          style={{ fontSize: '13px', letterSpacing: '.04em', color: 'rgba(255,255,255,0.68)', marginBottom: '28px', fontWeight: 300 }}
+          style={{ fontSize: '16px', letterSpacing: '.02em', color: 'rgba(255,255,255,0.88)', marginBottom: '28px', fontWeight: 500 }}
         >
           a cozy place for thoughtful puzzles and peaceful play
         </p>

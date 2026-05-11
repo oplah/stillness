@@ -5,7 +5,7 @@ export default function Complete({ svgStr, onRestart, onNew }) {
       <div className="comp-ill">
         <div dangerouslySetInnerHTML={{ __html: svgStr }} style={{ width: 280, lineHeight: 0 }} />
       </div>
-      <p style={{ color: 'var(--muted)', fontFamily: 'Cormorant Garamond, serif', fontSize: 18, fontStyle: 'italic', marginBottom: 30, textAlign: 'center', maxWidth: 360 }}>
+      <p style={{ color: 'var(--muted)', fontFamily: 'DM Sans, sans-serif', fontSize: 13, fontWeight: 300, letterSpacing: '.04em', marginBottom: 30, textAlign: 'center', maxWidth: 360 }}>
         Every piece in its place. Just like you.
       </p>
       <div style={{ display: 'flex', gap: 16 }}>
