@@ -5,7 +5,7 @@
   --bg2: #faf7f2;
   --text: #3a3250;
   --muted: #9888b8;
-  --lav: #8ab89a;
+  --lav: #9878c8;
   --toggle-bg: rgba(58,50,80,.08);
   --btn-bg: #3a3250;
   --btn-fg: #f8f5f0;
@@ -17,7 +17,7 @@
   --bg2: #1a1630;
   --text: #e8e0f8;
   --muted: #9888b8;
-  --lav: #7a9e8a;
+  --lav: #7858a8;
   --toggle-bg: rgba(255,255,255,.08);
   --btn-bg: #e8e0f8;
   --btn-fg: #1a1630;
@@ -72,12 +72,12 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
 .theme-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 40px; }
 .theme-card { background: var(--bg2); border: 1.5px solid transparent; border-radius: 16px; overflow: hidden; cursor: pointer; transition: all .25s; }
 .theme-card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(80,60,140,.1); }
-.theme-card.sel { border-color: var(--lav); box-shadow: 0 0 0 3px rgba(138,184,154,.2); }
+.theme-card.sel { border-color: var(--lav); box-shadow: 0 0 0 3px rgba(152,120,200,.2); }
 .theme-card svg { width: 100%; display: block; }
 .tc-label { padding: 13px 16px; font-size: 13px; letter-spacing: .06em; color: var(--text); font-weight: 400; }
 .diff-row { display: flex; gap: 12px; justify-content: center; margin-bottom: 36px; }
 .diff-btn { background: var(--bg2); border: 1.5px solid transparent; border-radius: 100px; padding: 10px 26px; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--muted); transition: all .2s; letter-spacing: .04em; }
-.diff-btn:hover { color: var(--text); border-color: rgba(138,184,154,.5); }
+.diff-btn:hover { color: var(--text); border-color: rgba(152,120,200,.5); }
 .diff-btn.sel { background: var(--btn-bg); color: var(--btn-fg); border-color: var(--btn-bg); }
 
 /* Puzzle */
@@ -91,7 +91,7 @@ canvas.drag { cursor: grabbing; }
 /* Theme toggle */
 .theme-toggle {
   background: var(--toggle-bg);
-  border: 1px solid rgba(138,184,154,.25);
+  border: 1px solid rgba(152,120,200,.25);
   border-radius: 100px;
   padding: 7px 14px;
   cursor: pointer;

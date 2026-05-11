@@ -30,12 +30,12 @@ export default function Landing({ onStart }) {
     <div className="screen" style={{ flexDirection: 'column' }}>
       <LandingBg />
       <div className="landing-content">
-        <div
-          className={`eyebrow fade-item${vis[0] ? ' vis' : ''}`}
-          style={{ color: 'rgba(255,255,255,0.65)' }}
+        <p
+          className={`fade-item${vis[0] ? ' vis' : ''}`}
+          style={{ fontSize: '13px', letterSpacing: '.04em', color: 'rgba(255,255,255,0.68)', marginBottom: '10px', fontWeight: 300 }}
         >
-          A mindful puzzle experience
-        </div>
+          a cozy place for thoughtful puzzles and peaceful play
+        </p>
         <h1
           className={`big-title fade-item${vis[1] ? ' vis' : ''}`}
           style={{
@@ -61,7 +61,7 @@ export default function Landing({ onStart }) {
           >
             Begin a puzzle
           </button>
-          <p className="sub-note" style={{ color: 'rgba(255,255,255,0.45)' }}>
+          <p className="sub-note" style={{ color: '#4a1e60' }}>
             No accounts · No scores · Just presence
           </p>
         </div>

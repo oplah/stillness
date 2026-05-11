@@ -38,16 +38,12 @@ function Lotus() {
   return (
     <>
       {PETAL_CONFIGS.map(([angle, w, h, fill, op], i) => {
-        // Teardrop path: base at origin, tip at (0, -h)
         const d = `M 0,5 C -${w},-2 -${w*.85},-${h*.55} 0,-${h} C ${w*.85},-${h*.55} ${w},-2 0,5 Z`;
         return (
           <path key={i} d={d} fill={fill} opacity={op}
             transform={`rotate(${angle})`} />
         );
       })}
-      {/* Golden centre */}
-      <circle r={14} fill="#eaca38" opacity={0.92}/>
-      <circle r={8}  fill="#fae048" opacity={0.88}/>
     </>
   );
 }
