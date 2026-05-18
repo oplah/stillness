@@ -3,13 +3,21 @@ import animal2Svg       from './svgs/animals/Animal-2.svg?raw';
 import animal3Svg       from './svgs/animals/Animal-3.svg?raw';
 import animal4Svg       from './svgs/animals/Animal-4.svg?raw';
 import animal5Svg       from './svgs/animals/Animal-5.svg?raw';
+import animal6Svg       from './svgs/animals/Animal-6.svg?raw';
+import animal7Svg       from './svgs/animals/Animal-7.svg?raw';
+import animal8Svg       from './svgs/animals/Animal-8.svg?raw';
 import architecture1Svg from './svgs/architecture/Architecture-1.svg?raw';
 import architecture2Svg from './svgs/architecture/Architecture-2.svg?raw';
 import architecture3Svg from './svgs/architecture/Architecture-3.svg?raw';
 import architecture4Svg from './svgs/architecture/Architecture-4.svg?raw';
+import architecture5Svg from './svgs/architecture/Architecture-5.svg?raw';
+import architecture6Svg from './svgs/architecture/Architecture-6.svg?raw';
 import nature1Svg       from './svgs/nature/Nature-1.svg?raw';
 import nature2Svg       from './svgs/nature/Nature-2.svg?raw';
 import nature3Svg       from './svgs/nature/Nature-3.svg?raw';
+import nature4Svg       from './svgs/nature/Nature-4.svg?raw';
+import nature5Svg       from './svgs/nature/Nature-5.svg?raw';
+import nature6Svg       from './svgs/nature/Nature-6.svg?raw';
 
 const uid = () => Math.random().toString(36).slice(2, 7);
 
@@ -657,14 +665,17 @@ const VARIANTS = {
   nature: [
     makeNature, makeNatureHills, makeNaturePagoda, makeNatureZen,
     () => nature1Svg, () => nature2Svg, () => nature3Svg,
+    () => nature4Svg, () => nature5Svg, () => nature6Svg,
   ],
   animals: [
     makeAnimals, makeAnimalsDeer, makeAnimalsKoi, makeAnimalsOwl,
     () => animal1Svg, () => animal2Svg, () => animal3Svg, () => animal4Svg, () => animal5Svg,
+    () => animal6Svg, () => animal7Svg, () => animal8Svg,
   ],
   things: [
     makeThings, makeThingsLighthouse, makeThingsFloating, makeThingsAqueduct,
     () => architecture1Svg, () => architecture2Svg, () => architecture3Svg, () => architecture4Svg,
+    () => architecture5Svg, () => architecture6Svg,
   ],
 };
 
