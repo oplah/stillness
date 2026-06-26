@@ -13,12 +13,12 @@ const AFFS = [
 
 export default function Landing({ onStart }) {
   const [aff] = useState(() => AFFS[Math.floor(Math.random() * AFFS.length)]);
-  const [vis, setVis] = useState([false, false, false, false]);
+  const [vis, setVis] = useState([false, false, false, false, false]);
 
   useEffect(() => {
     let timers = [];
     requestAnimationFrame(() => requestAnimationFrame(() => {
-      const delays = [0, 140, 280, 420];
+      const delays = [0, 140, 280, 420, 600];
       timers = delays.map((d, i) =>
         setTimeout(() => setVis(v => { const n = [...v]; n[i] = true; return n; }), d)
       );
@@ -34,24 +34,21 @@ export default function Landing({ onStart }) {
         {/* Logo */}
         <h1
           className={`big-title fade-item${vis[0] ? ' vis' : ''}`}
-          style={{ color: '#ffffff', fontFamily: "'Nunito', sans-serif", fontWeight: 900, letterSpacing: '-0.01em', marginBottom: '32px' }}
+          style={{ color: 'var(--landing-title)', fontFamily: "'Nunito', sans-serif", fontWeight: 900, letterSpacing: '-0.01em', marginBottom: '32px' }}
         >
-          Cozy<em style={{ color: 'rgba(255,190,215,0.95)', fontStyle: 'italic', fontWeight: 800 }}>puzzly</em>
+          Cozy<em style={{ color: 'var(--landing-accent)', fontStyle: 'italic', fontWeight: 800 }}>puzzly</em>
         </h1>
 
         {/* Subtitle — below the logo */}
         <p
           className={`fade-item${vis[1] ? ' vis' : ''}`}
-          style={{ fontSize: '18px', letterSpacing: '.02em', color: 'rgba(255,255,255,0.92)', marginBottom: '32px', fontWeight: 700 }}
+          style={{ fontSize: '18px', letterSpacing: '.02em', color: 'var(--landing-sub)', marginBottom: '32px', fontWeight: 700 }}
         >
           a cozy place for thoughtful puzzles and peaceful play
         </p>
 
         {/* Quote */}
-        <p
-          className={`tagline fade-item${vis[2] ? ' vis' : ''}`}
-          style={{ color: 'rgba(255,255,255,0.75)' }}
-        >
+        <p className={`tagline fade-item${vis[2] ? ' vis' : ''}`}>
           "{aff}"
         </p>
 
@@ -70,6 +67,14 @@ export default function Landing({ onStart }) {
         </div>
 
       </div>
+
+      {/* Buy Me a Coffee — pinned to bottom of screen */}
+      <div className={`bmc-bottom fade-item${vis[4] ? ' vis' : ''}`}>
+        <a href="https://buymeacoffee.com/yourname" target="_blank" rel="noopener noreferrer" className="bmc-link">
+          ☕ Buy me a coffee
+        </a>
+      </div>
+
     </div>
   );
 }
