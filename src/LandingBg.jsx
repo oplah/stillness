@@ -20,8 +20,8 @@ import ar6 from './svgs/architecture/Architecture-6.svg?url';
 const CARDS = [
   [n4,   -44, -28,  -9, 0.90, 210, 130],  // top-left corner — shown on mobile
   [a6,    42, -28,   7, 0.50, 178,  null],  // top-right, far — desktop only
-  [ar5,  -48,  14, -13, 0.64, 188,  null],  // left-mid — desktop only
-  [a7,    46,  12,   8, 0.82, 198, 130],  // right-mid — shown on mobile
+  [ar5,  -36,  10, -13, 0.64, 188,  null],  // left-mid — desktop only
+  [a7,    36,  10,   8, 0.82, 198, 130],   // right-mid — shown on mobile
   [n5,   -28, -46,   5, 0.42, 158,  null],  // top-center-left — desktop only
   [ar6,   26, -46,  -6, 0.72, 170,  null],  // top-center-right — desktop only
   [a8,   -44,  40, -10, 0.56, 166, 118],  // bottom-left corner — shown on mobile
@@ -29,10 +29,10 @@ const CARDS = [
   // 6 new cards — desktop only, fill gaps between existing cards
   [ar2,  -36, -36,  11, 0.75, 186,  null],  // upper-left zone
   [ar4,   36, -36,  -7, 0.35, 152,  null],  // upper-right zone
-  [a2,   -46,  28, -14, 0.82, 194,  null],  // left side, below mid
-  [a4,    44, -42,  12, 0.44, 158,  null],  // top-right, high
-  [n1,   -22,  46,   7, 0.60, 170,  null],  // bottom, center-left
-  [n3,    22,  46,  -9, 0.50, 162,  null],  // bottom, center-right
+  [a2,   -36,  28, -14, 0.82, 194,  null],  // left lower, closer in
+  [a4,    36, -42,  12, 0.44, 158,  null],  // upper-right, closer in
+  [n1,   -14,  46,   7, 0.60, 170,  null],  // bottom, just left of center
+  [n3,    16,  46,  -9, 0.50, 162,  null],  // bottom, just right of center
 ];
 
 export default function LandingBg() {
