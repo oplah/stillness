@@ -1,11 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
 
+import n1  from './svgs/nature/Nature-1.svg?url';
+import n3  from './svgs/nature/Nature-3.svg?url';
 import n4  from './svgs/nature/Nature-4.svg?url';
 import n5  from './svgs/nature/Nature-5.svg?url';
 import n6  from './svgs/nature/Nature-6.svg?url';
+import a2  from './svgs/animals/Animal-2.svg?url';
+import a4  from './svgs/animals/Animal-4.svg?url';
 import a6  from './svgs/animals/Animal-6.svg?url';
 import a7  from './svgs/animals/Animal-7.svg?url';
 import a8  from './svgs/animals/Animal-8.svg?url';
+import ar2 from './svgs/architecture/Architecture-2.svg?url';
+import ar4 from './svgs/architecture/Architecture-4.svg?url';
 import ar5 from './svgs/architecture/Architecture-5.svg?url';
 import ar6 from './svgs/architecture/Architecture-6.svg?url';
 
@@ -20,6 +26,13 @@ const CARDS = [
   [ar6,   26, -46,  -6, 0.72, 170,  null],  // top-center-right — desktop only
   [a8,   -44,  40, -10, 0.56, 166, 118],  // bottom-left corner — shown on mobile
   [n6,    42,  40,  11, 0.88, 196, 128],  // bottom-right corner — shown on mobile
+  // 6 new cards — desktop only, fill gaps between existing cards
+  [ar2,  -36, -36,  11, 0.75, 186,  null],  // upper-left zone
+  [ar4,   36, -36,  -7, 0.35, 152,  null],  // upper-right zone
+  [a2,   -46,  28, -14, 0.82, 194,  null],  // left side, below mid
+  [a4,    44, -42,  12, 0.44, 158,  null],  // top-right, high
+  [n1,   -22,  46,   7, 0.60, 170,  null],  // bottom, center-left
+  [n3,    22,  46,  -9, 0.50, 162,  null],  // bottom, center-right
 ];
 
 export default function LandingBg() {
