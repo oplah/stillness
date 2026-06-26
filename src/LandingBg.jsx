@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import n4  from './svgs/nature/Nature-4.svg?url';
 import n5  from './svgs/nature/Nature-5.svg?url';
@@ -9,21 +9,28 @@ import a8  from './svgs/animals/Animal-8.svg?url';
 import ar5 from './svgs/architecture/Architecture-5.svg?url';
 import ar6 from './svgs/architecture/Architecture-6.svg?url';
 
-// [src, xVw (% from center), yVh (% from center), rotateDeg, depth (0=far 1=near), sizePx]
-// Cards are placed in the corners/edges, leaving the central content area clear
+// [src, xVw, yVh, rotateDeg, depth (0=far 1=near), desktopSize, mobileSize | null (hidden on mobile)]
+// xVw/yVh = % offset from center. Cards stay in corners/edges to keep text area clear.
 const CARDS = [
-  [n4,  -44, -24,  -9, 0.90, 218],  // top-left, near
-  [a6,   40, -26,   7, 0.50, 180],  // top-right, far
-  [ar5, -46,  12, -13, 0.64, 192],  // left-mid
-  [a7,   42,  10,   8, 0.82, 202],  // right-mid, near
-  [n5,  -30, -44,   5, 0.42, 162],  // top-center-left, far (above content)
-  [ar6,  28, -44,  -6, 0.72, 175],  // top-center-right (above content)
-  [a8,  -32,  40, -10, 0.56, 170],  // bottom-left
-  [n6,   30,  40,  11, 0.88, 200],  // bottom-right, near
+  [n4,   -44, -28,  -9, 0.90, 210, 130],  // top-left corner — shown on mobile
+  [a6,    42, -28,   7, 0.50, 178,  null],  // top-right, far — desktop only
+  [ar5,  -48,  14, -13, 0.64, 188,  null],  // left-mid — desktop only
+  [a7,    46,  12,   8, 0.82, 198, 130],  // right-mid — shown on mobile
+  [n5,   -28, -46,   5, 0.42, 158,  null],  // top-center-left — desktop only
+  [ar6,   26, -46,  -6, 0.72, 170,  null],  // top-center-right — desktop only
+  [a8,   -44,  40, -10, 0.56, 166, 118],  // bottom-left corner — shown on mobile
+  [n6,    42,  40,  11, 0.88, 196, 128],  // bottom-right corner — shown on mobile
 ];
 
 export default function LandingBg() {
   const refs = useRef([]);
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 600);
+
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth < 600);
+    window.addEventListener('resize', onResize, { passive: true });
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
 
   useEffect(() => {
     const target = { x: 0.5, y: 0.5 };
@@ -42,8 +49,9 @@ export default function LandingBg() {
       refs.current.forEach((el, i) => {
         if (!el) return;
         const [,,,rot, depth] = CARDS[i];
-        const px = (curr.x - 0.5) * depth * 60;
-        const py = (curr.y - 0.5) * depth * 60;
+        const travel = isMobile ? 30 : 60;
+        const px = (curr.x - 0.5) * depth * travel;
+        const py = (curr.y - 0.5) * depth * travel;
         const scale = 0.80 + depth * 0.20;
         el.style.transform = `translate(calc(-50% + ${px.toFixed(2)}px), calc(-50% + ${py.toFixed(2)}px)) rotate(${rot}deg) scale(${scale})`;
       });
@@ -57,11 +65,15 @@ export default function LandingBg() {
       window.removeEventListener('mousemove', onMove);
       cancelAnimationFrame(rafId);
     };
-  }, []);
+  }, [isMobile]);
 
   return (
     <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none' }}>
-      {CARDS.map(([src, xVw, yVh, rot, depth, size], i) => {
+      {CARDS.map(([src, xVw, yVh, rot, depth, desktopSize, mobileSize], i) => {
+        const hidden = isMobile && mobileSize === null;
+        if (hidden) return null;
+
+        const size    = isMobile ? mobileSize : desktopSize;
         const blur    = Math.max(0, (0.88 - depth) * 4.5);
         const opacity = 0.60 + depth * 0.40;
         const scale   = 0.80 + depth * 0.20;
@@ -76,7 +88,7 @@ export default function LandingBg() {
               left: `calc(50% + ${xVw}vw)`,
               top:  `calc(50% + ${yVh}vh)`,
               width: size, height: size,
-              borderRadius: 22,
+              borderRadius: 18,
               overflow: 'hidden',
               zIndex: Math.round(depth * 9),
               boxShadow: shadow,
