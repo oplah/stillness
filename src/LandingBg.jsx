@@ -1,84 +1,95 @@
-// Star glow positions (in 1024x576 illustration space) [cx, cy, delayS, durS]
-const STAR_GLOWS = [
-  [352, 160, 0,   3.8],
-  [437, 173, 1.2, 4.3],
-  [484, 153, 0.5, 3.5],
-  [630, 163, 2.0, 4.7],
-];
+import { useEffect, useRef } from 'react';
 
-// Water shimmer glints [cx, cy, rx, ry, delayS, durS]
-const WATER_GLINTS = [
-  [200, 462, 58, 4, 0.4, 4.2],
-  [460, 448, 52, 3, 1.9, 3.8],
-  [680, 458, 64, 4, 0.8, 4.6],
-  [870, 468, 48, 3, 2.6, 3.9],
-];
+import n4  from './svgs/nature/Nature-4.svg?url';
+import n5  from './svgs/nature/Nature-5.svg?url';
+import n6  from './svgs/nature/Nature-6.svg?url';
+import a6  from './svgs/animals/Animal-6.svg?url';
+import a7  from './svgs/animals/Animal-7.svg?url';
+import a8  from './svgs/animals/Animal-8.svg?url';
+import ar5 from './svgs/architecture/Architecture-5.svg?url';
+import ar6 from './svgs/architecture/Architecture-6.svg?url';
 
-// Duck position — ripples suggest movement in water
-const DX = 462, DY = 458;
+// [src, xVw (% from center), yVh (% from center), rotateDeg, depth (0=far 1=near), sizePx]
+// Cards are placed in the corners/edges, leaving the central content area clear
+const CARDS = [
+  [n4,  -44, -24,  -9, 0.90, 218],  // top-left, near
+  [a6,   40, -26,   7, 0.50, 180],  // top-right, far
+  [ar5, -46,  12, -13, 0.64, 192],  // left-mid
+  [a7,   42,  10,   8, 0.82, 202],  // right-mid, near
+  [n5,  -30, -44,   5, 0.42, 162],  // top-center-left, far (above content)
+  [ar6,  28, -44,  -6, 0.72, 175],  // top-center-right (above content)
+  [a8,  -32,  40, -10, 0.56, 170],  // bottom-left
+  [n6,   30,  40,  11, 0.88, 200],  // bottom-right, near
+];
 
 export default function LandingBg() {
+  const refs = useRef([]);
+
+  useEffect(() => {
+    const target = { x: 0.5, y: 0.5 };
+    const curr   = { x: 0.5, y: 0.5 };
+
+    const onMove = (e) => {
+      target.x = e.clientX / window.innerWidth;
+      target.y = e.clientY / window.innerHeight;
+    };
+
+    let rafId;
+    const tick = () => {
+      curr.x += (target.x - curr.x) * 0.05;
+      curr.y += (target.y - curr.y) * 0.05;
+
+      refs.current.forEach((el, i) => {
+        if (!el) return;
+        const [,,,rot, depth] = CARDS[i];
+        const px = (curr.x - 0.5) * depth * 60;
+        const py = (curr.y - 0.5) * depth * 60;
+        const scale = 0.80 + depth * 0.20;
+        el.style.transform = `translate(calc(-50% + ${px.toFixed(2)}px), calc(-50% + ${py.toFixed(2)}px)) rotate(${rot}deg) scale(${scale})`;
+      });
+
+      rafId = requestAnimationFrame(tick);
+    };
+
+    window.addEventListener('mousemove', onMove, { passive: true });
+    rafId = requestAnimationFrame(tick);
+    return () => {
+      window.removeEventListener('mousemove', onMove);
+      cancelAnimationFrame(rafId);
+    };
+  }, []);
+
   return (
     <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none' }}>
-      {/* Base illustration */}
-      <img
-        src="/wallpaper.svg"
-        alt=""
-        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
-      />
+      {CARDS.map(([src, xVw, yVh, rot, depth, size], i) => {
+        const blur    = Math.max(0, (0.88 - depth) * 4.5);
+        const opacity = 0.60 + depth * 0.40;
+        const scale   = 0.80 + depth * 0.20;
+        const shadow  = `0 ${Math.round(6 + depth * 20)}px ${Math.round(20 + depth * 40)}px rgba(60,50,100,${(0.05 + depth * 0.11).toFixed(2)})`;
 
-      {/* Animated overlay — same coordinate space as the illustration */}
-      <svg viewBox="0 0 1024 576" preserveAspectRatio="xMidYMid slice"
-        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}>
-
-        {/* Twinkling star glows */}
-        {STAR_GLOWS.map(([x, y, delay, dur], i) => (
-          <circle key={i} cx={x} cy={y} r={6} fill="#f5e760">
-            <animate attributeName="opacity" values="0;0.72;0.1;0.8;0"
-              dur={`${dur}s`} begin={`${delay}s`} repeatCount="indefinite"/>
-            <animate attributeName="r" values="4;9;5;10;4"
-              dur={`${dur}s`} begin={`${delay}s`} repeatCount="indefinite"/>
-          </circle>
-        ))}
-
-        {/* Water shimmer glints */}
-        {WATER_GLINTS.map(([x, y, rx, ry, delay, dur], i) => (
-          <ellipse key={i} cx={x} cy={y} rx={rx} ry={ry} stroke="none">
-            <animate attributeName="fill"
-              values="rgba(255,255,255,0);rgba(255,255,255,0.2);rgba(255,255,255,0)"
-              dur={`${dur}s`} begin={`${delay}s`} repeatCount="indefinite"/>
-          </ellipse>
-        ))}
-
-        {/* Expanding ripples around duck — suggests floating movement */}
-        {[0, 1.6, 3.2].map((delay, i) => (
-          <ellipse key={i} cx={DX} cy={DY} fill="none"
-            stroke="rgba(139,194,176,0.55)" strokeWidth="1.2">
-            <animate attributeName="rx" values="12;90" dur="4.5s" begin={`${delay}s`} repeatCount="indefinite"
-              calcMode="spline" keySplines="0.2 0.1 0.8 0.9"/>
-            <animate attributeName="ry" values="4;22" dur="4.5s" begin={`${delay}s`} repeatCount="indefinite"
-              calcMode="spline" keySplines="0.2 0.1 0.8 0.9"/>
-            <animate attributeName="opacity" values="0.55;0" dur="4.5s" begin={`${delay}s`} repeatCount="indefinite"/>
-          </ellipse>
-        ))}
-
-        {/* Gentle waves at water surface */}
-        <path fill="none" stroke="rgba(255,255,255,0.11)" strokeWidth="1.5">
-          <animate attributeName="d"
-            values="M 0 432 Q 256 424 512 432 Q 768 440 1024 432;
-                    M 0 432 Q 256 440 512 432 Q 768 424 1024 432;
-                    M 0 432 Q 256 424 512 432 Q 768 440 1024 432"
-            dur="8s" repeatCount="indefinite"/>
-        </path>
-        <path fill="none" stroke="rgba(255,255,255,0.07)" strokeWidth="1">
-          <animate attributeName="d"
-            values="M 0 452 Q 256 445 512 452 Q 768 459 1024 452;
-                    M 0 452 Q 256 459 512 452 Q 768 445 1024 452;
-                    M 0 452 Q 256 445 512 452 Q 768 459 1024 452"
-            dur="6s" begin="1.5s" repeatCount="indefinite"/>
-        </path>
-
-      </svg>
+        return (
+          <div
+            key={i}
+            ref={el => (refs.current[i] = el)}
+            style={{
+              position: 'absolute',
+              left: `calc(50% + ${xVw}vw)`,
+              top:  `calc(50% + ${yVh}vh)`,
+              width: size, height: size,
+              borderRadius: 22,
+              overflow: 'hidden',
+              zIndex: Math.round(depth * 9),
+              boxShadow: shadow,
+              filter: blur > 0 ? `blur(${blur.toFixed(1)}px)` : 'none',
+              opacity,
+              transform: `translate(-50%, -50%) rotate(${rot}deg) scale(${scale})`,
+              willChange: 'transform',
+            }}
+          >
+            <img src={src} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+          </div>
+        );
+      })}
     </div>
   );
 }

@@ -61,7 +61,7 @@ export default function Landing({ onStart }) {
           >
             Begin a puzzle
           </button>
-          <p className="sub-note" style={{ color: '#4a1e60' }}>
+          <p className="sub-note" style={{ color: 'var(--landing-subnote)' }}>
             No accounts · No scores · Just presence
           </p>
         </div>
