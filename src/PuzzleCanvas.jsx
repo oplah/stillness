@@ -214,7 +214,7 @@ export default function PuzzleCanvas({ svgStr, cols, rows, onComplete, uiTheme, 
     const mob = L.img > IMG_D;
 
     ctx.clearRect(0, 0, CW, effectiveCh);
-    ctx.fillStyle = dark ? '#12102a' : '#eae4db';
+    ctx.fillStyle = dark ? '#12102a' : '#f3efe9';
     ctx.fillRect(0, 0, CW, effectiveCh);
 
     // Dot grid
@@ -328,7 +328,7 @@ export default function PuzzleCanvas({ svgStr, cols, rows, onComplete, uiTheme, 
           onMouseDown={onDown} onMouseMove={onMove} onMouseUp={onUp} onMouseLeave={onUp}
           onTouchStart={onDown} onTouchMove={onMove} onTouchEnd={onUp} />
         {!loaded && (
-          <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: uiTheme === 'dark' ? '#12102a' : '#eae4db' }}>
+          <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: uiTheme === 'dark' ? '#12102a' : '#f3efe9' }}>
             <span style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 22, color: 'var(--muted)', fontStyle: 'italic' }}>
               Preparing your puzzle…
             </span>
