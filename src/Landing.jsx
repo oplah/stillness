@@ -35,7 +35,7 @@ export default function Landing({ onStart }) {
           className={`big-title fade-item${vis[0] ? ' vis' : ''}`}
           style={{ color: 'var(--landing-title)', fontFamily: "'Nunito', sans-serif", fontWeight: 900, letterSpacing: '-0.01em', marginBottom: '32px' }}
         >
-          Cozy<em style={{ color: 'var(--landing-accent)', fontStyle: 'italic', fontWeight: 800 }}>puzzly</em>
+          Cozypuzzly
         </h1>
 
         {/* Subtitle */}
@@ -43,7 +43,7 @@ export default function Landing({ onStart }) {
           className={`fade-item${vis[1] ? ' vis' : ''}`}
           style={{ fontSize: '18px', letterSpacing: '.02em', color: 'var(--landing-sub)', marginBottom: '32px', fontWeight: 700 }}
         >
-          a cozy place for thoughtful puzzles and peaceful play
+          A cozy stop for puzzles and peaceful play
         </p>
 
         {/* Quote */}

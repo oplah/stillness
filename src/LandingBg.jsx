@@ -1,12 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
 
 import n1  from './svgs/nature/Nature-1.svg?url';
+import n2  from './svgs/nature/Nature-2.svg?url';
 import n3  from './svgs/nature/Nature-3.svg?url';
 import n4  from './svgs/nature/Nature-4.svg?url';
 import n5  from './svgs/nature/Nature-5.svg?url';
 import n6  from './svgs/nature/Nature-6.svg?url';
+import a1  from './svgs/animals/Animal-1.svg?url';
 import a2  from './svgs/animals/Animal-2.svg?url';
+import a3  from './svgs/animals/Animal-3.svg?url';
 import a4  from './svgs/animals/Animal-4.svg?url';
+import a5  from './svgs/animals/Animal-5.svg?url';
 import a6  from './svgs/animals/Animal-6.svg?url';
 import a7  from './svgs/animals/Animal-7.svg?url';
 import a8  from './svgs/animals/Animal-8.svg?url';
@@ -17,14 +21,13 @@ import ar6 from './svgs/architecture/Architecture-6.svg?url';
 
 // [src, xVw, yVh, rotateDeg, depth, desktopSize, tabletSize, mobileSize]
 // null = hidden at that breakpoint
-// Tablet = top/bottom only (no side cards). Mobile = 4 corners only.
 const CARDS = [
   [n4,   -44, -28,  -9, 0.90, 210, 140, 120],  // top-left corner — all
   [a6,    42, -28,   7, 0.50, 178, 130, 110],  // top-right corner — all
   [ar5,  -32,  10, -13, 0.64, 188, null, null], // left-mid — desktop only
   [a7,    32,  10,   8, 0.82, 198, null, null], // right-mid — desktop only
-  [n5,   -28, -46,   5, 0.42, 158, 130, null], // top-center-left — desktop+tablet
-  [ar6,   26, -46,  -6, 0.72, 170, 130, null], // top-center-right — desktop+tablet
+  [n5,   -28, -46,   5, 0.42, 158, 130, 100],  // top-center-left — all (fills mobile top gap)
+  [ar6,   26, -46,  -6, 0.72, 170, 130, 100],  // top-center-right — all (fills mobile top gap)
   [a8,   -44,  40, -10, 0.56, 166, 130, 118],  // bottom-left corner — all
   [n6,    42,  40,  11, 0.88, 196, 140, 128],  // bottom-right corner — all
   [ar2,  -36, -36,  11, 0.75, 186, null, null], // upper-left zone — desktop only
@@ -33,6 +36,12 @@ const CARDS = [
   [a4,    36, -42,  12, 0.44, 158, null, null], // top-right high — desktop only
   [n1,   -14,  46,   7, 0.60, 170, 130, null], // bottom center-left — desktop+tablet
   [n3,    16,  46,  -9, 0.50, 162, 130, null], // bottom center-right — desktop+tablet
+  // desktop top-center fill (red box gap above logo)
+  [a5,   -10, -40,   6, 0.65, 162, null, null], // top center-left — desktop only
+  [n2,     8, -40,  -8, 0.48, 148, null, null], // top center-right — desktop only
+  // mobile bottom fill (red box gap between CTA and bottom cards)
+  [a1,   -18,  30,   8, 0.72, null, null, 108], // mobile bottom center-left
+  [a3,    14,  30,  -7, 0.55, null, null, 102], // mobile bottom center-right
 ];
 
 export default function LandingBg() {

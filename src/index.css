@@ -1,16 +1,16 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg: #f0ebe2;
-  --bg2: #faf7f2;
+  --bg: #fefefb;
+  --bg2: #ffffff;
   --text: #3a3250;
   --muted: #9888b8;
   --lav: #9878c8;
   --toggle-bg: rgba(58,50,80,.08);
   --btn-bg: #3a3250;
-  --btn-fg: #f8f5f0;
-  --overlay: rgba(240,235,226,.94);
-  --landing-title: #3a2060;
+  --btn-fg: #fefefb;
+  --overlay: rgba(254,254,251,.94);
+  --landing-title: #09090a;
   --landing-accent: #c04888;
   --landing-sub: rgba(50,40,70,0.88);
   --landing-subnote: #4a1e60;
