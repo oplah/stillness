@@ -16,6 +16,12 @@ export default function Setup({ onBegin, onBack, uiTheme, onToggleUi }) {
 
   return (
     <div className="screen">
+      <div className="kofi-bottom">
+        <a href="https://ko-fi.com/O8K72255BA" target="_blank" rel="noopener noreferrer" className="kofi-link">
+          <img src="https://storage.ko-fi.com/cdn/cup-border.png" alt="" className="kofi-icon" />
+          Support me on Ko-fi
+        </a>
+      </div>
       <div style={{ position: 'absolute', top: 18, right: 24 }}>
         <button className="theme-toggle" onClick={onToggleUi}>
           {uiTheme === 'light' ? '☽ Dark' : '☀ Light'}
