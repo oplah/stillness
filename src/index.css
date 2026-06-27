@@ -80,15 +80,21 @@ html, body { height: 100%; background: var(--bg); color: var(--text); font-famil
 .setup-content { position: relative; text-align: center; max-width: 700px; width: 100%; padding: 40px 24px; animation: floatUp .7s ease both; }
 .setup-label { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: 18px; display: block; }
 .theme-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 40px; }
-.theme-card { background: var(--bg2); border: 1.5px solid transparent; border-radius: 16px; overflow: hidden; cursor: pointer; transition: all .25s; }
+.theme-card { background: #eae4db; border: 1.5px solid transparent; border-radius: 16px; overflow: hidden; cursor: pointer; transition: all .25s; }
 .theme-card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(80,60,140,.1); }
 .theme-card.sel { border-color: var(--lav); box-shadow: 0 0 0 3px rgba(152,120,200,.2); }
 .theme-card svg { width: 100%; display: block; }
 .tc-label { padding: 13px 16px; font-size: 13px; letter-spacing: .06em; color: var(--text); font-weight: 400; }
+[data-theme="dark"] .theme-card { background: var(--bg2); }
 .diff-row { display: flex; gap: 12px; justify-content: center; margin-bottom: 36px; }
-.diff-btn { background: var(--bg2); border: 1.5px solid transparent; border-radius: 100px; padding: 10px 26px; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--muted); transition: all .2s; letter-spacing: .04em; }
+.diff-btn { background: transparent; border: 1.5px solid #eae4db; border-radius: 100px; padding: 10px 26px; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--muted); transition: all .2s; letter-spacing: .04em; }
 .diff-btn:hover { color: var(--text); border-color: rgba(152,120,200,.5); }
 .diff-btn.sel { background: var(--btn-bg); color: var(--btn-fg); border-color: var(--btn-bg); }
+[data-theme="dark"] .diff-btn { border-color: rgba(152,120,200,.25); }
+@media (max-width: 600px) {
+  .diff-row { flex-direction: column; align-items: center; gap: 10px; }
+  .diff-btn { width: 220px; }
+}
 
 /* Puzzle */
 .puz-header { position: relative; z-index: 10; display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 960px; padding: 18px 24px 10px; }
