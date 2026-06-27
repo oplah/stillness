@@ -14,7 +14,6 @@ const AFFS = [
 export default function Landing({ onStart }) {
   const [aff] = useState(() => AFFS[Math.floor(Math.random() * AFFS.length)]);
   const [vis, setVis] = useState([false, false, false, false, false]);
-
   useEffect(() => {
     let timers = [];
     requestAnimationFrame(() => requestAnimationFrame(() => {
@@ -39,7 +38,7 @@ export default function Landing({ onStart }) {
           Cozy<em style={{ color: 'var(--landing-accent)', fontStyle: 'italic', fontWeight: 800 }}>puzzly</em>
         </h1>
 
-        {/* Subtitle — below the logo */}
+        {/* Subtitle */}
         <p
           className={`fade-item${vis[1] ? ' vis' : ''}`}
           style={{ fontSize: '18px', letterSpacing: '.02em', color: 'var(--landing-sub)', marginBottom: '32px', fontWeight: 700 }}
@@ -68,10 +67,11 @@ export default function Landing({ onStart }) {
 
       </div>
 
-      {/* Buy Me a Coffee — pinned to bottom of screen */}
-      <div className={`bmc-bottom fade-item${vis[4] ? ' vis' : ''}`}>
-        <a href="https://buymeacoffee.com/yourname" target="_blank" rel="noopener noreferrer" className="bmc-link">
-          ☕ Buy me a coffee
+      {/* Ko-fi button — pinned to bottom of screen */}
+      <div className={`kofi-bottom fade-item${vis[4] ? ' vis' : ''}`}>
+        <a href="https://ko-fi.com/O8K72255BA" target="_blank" rel="noopener noreferrer" className="kofi-link">
+          <img src="https://storage.ko-fi.com/cdn/cup-border.png" alt="" className="kofi-icon" />
+          Support me on Ko-fi
         </a>
       </div>
 

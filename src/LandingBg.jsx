@@ -15,32 +15,38 @@ import ar4 from './svgs/architecture/Architecture-4.svg?url';
 import ar5 from './svgs/architecture/Architecture-5.svg?url';
 import ar6 from './svgs/architecture/Architecture-6.svg?url';
 
-// [src, xVw, yVh, rotateDeg, depth (0=far 1=near), desktopSize, mobileSize | null (hidden on mobile)]
-// xVw/yVh = % offset from center. Cards stay in corners/edges to keep text area clear.
+// [src, xVw, yVh, rotateDeg, depth, desktopSize, tabletSize, mobileSize]
+// null = hidden at that breakpoint
+// Tablet = top/bottom only (no side cards). Mobile = 4 corners only.
 const CARDS = [
-  [n4,   -44, -28,  -9, 0.90, 210, 130],  // top-left corner — shown on mobile
-  [a6,    42, -28,   7, 0.50, 178,  null],  // top-right, far — desktop only
-  [ar5,  -36,  10, -13, 0.64, 188,  null],  // left-mid — desktop only
-  [a7,    36,  10,   8, 0.82, 198, 130],   // right-mid — shown on mobile
-  [n5,   -28, -46,   5, 0.42, 158,  null],  // top-center-left — desktop only
-  [ar6,   26, -46,  -6, 0.72, 170,  null],  // top-center-right — desktop only
-  [a8,   -44,  40, -10, 0.56, 166, 118],  // bottom-left corner — shown on mobile
-  [n6,    42,  40,  11, 0.88, 196, 128],  // bottom-right corner — shown on mobile
-  // 6 new cards — desktop only, fill gaps between existing cards
-  [ar2,  -36, -36,  11, 0.75, 186,  null],  // upper-left zone
-  [ar4,   36, -36,  -7, 0.35, 152,  null],  // upper-right zone
-  [a2,   -36,  28, -14, 0.82, 194,  null],  // left lower, closer in
-  [a4,    36, -42,  12, 0.44, 158,  null],  // upper-right, closer in
-  [n1,   -14,  46,   7, 0.60, 170,  null],  // bottom, just left of center
-  [n3,    16,  46,  -9, 0.50, 162,  null],  // bottom, just right of center
+  [n4,   -44, -28,  -9, 0.90, 210, 140, 120],  // top-left corner — all
+  [a6,    42, -28,   7, 0.50, 178, 130, 110],  // top-right corner — all
+  [ar5,  -32,  10, -13, 0.64, 188, null, null], // left-mid — desktop only
+  [a7,    32,  10,   8, 0.82, 198, null, null], // right-mid — desktop only
+  [n5,   -28, -46,   5, 0.42, 158, 130, null], // top-center-left — desktop+tablet
+  [ar6,   26, -46,  -6, 0.72, 170, 130, null], // top-center-right — desktop+tablet
+  [a8,   -44,  40, -10, 0.56, 166, 130, 118],  // bottom-left corner — all
+  [n6,    42,  40,  11, 0.88, 196, 140, 128],  // bottom-right corner — all
+  [ar2,  -36, -36,  11, 0.75, 186, null, null], // upper-left zone — desktop only
+  [ar4,   36, -36,  -7, 0.35, 152, null, null], // upper-right zone — desktop only
+  [a2,   -32,  28, -14, 0.82, 194, null, null], // left lower — desktop only
+  [a4,    36, -42,  12, 0.44, 158, null, null], // top-right high — desktop only
+  [n1,   -14,  46,   7, 0.60, 170, 130, null], // bottom center-left — desktop+tablet
+  [n3,    16,  46,  -9, 0.50, 162, 130, null], // bottom center-right — desktop+tablet
 ];
 
 export default function LandingBg() {
   const refs = useRef([]);
-  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 600);
+  const [bp, setBp] = useState(() => {
+    const w = window.innerWidth;
+    return w < 600 ? 'mobile' : w < 1024 ? 'tablet' : 'desktop';
+  });
 
   useEffect(() => {
-    const onResize = () => setIsMobile(window.innerWidth < 600);
+    const onResize = () => {
+      const w = window.innerWidth;
+      setBp(w < 600 ? 'mobile' : w < 1024 ? 'tablet' : 'desktop');
+    };
     window.addEventListener('resize', onResize, { passive: true });
     return () => window.removeEventListener('resize', onResize);
   }, []);
@@ -54,6 +60,8 @@ export default function LandingBg() {
       target.y = e.clientY / window.innerHeight;
     };
 
+    const travel = bp === 'mobile' ? 20 : bp === 'tablet' ? 35 : 60;
+
     let rafId;
     const tick = () => {
       curr.x += (target.x - curr.x) * 0.05;
@@ -62,7 +70,6 @@ export default function LandingBg() {
       refs.current.forEach((el, i) => {
         if (!el) return;
         const [,,,rot, depth] = CARDS[i];
-        const travel = isMobile ? 30 : 60;
         const px = (curr.x - 0.5) * depth * travel;
         const py = (curr.y - 0.5) * depth * travel;
         const scale = 0.80 + depth * 0.20;
@@ -78,15 +85,14 @@ export default function LandingBg() {
       window.removeEventListener('mousemove', onMove);
       cancelAnimationFrame(rafId);
     };
-  }, [isMobile]);
+  }, [bp]);
 
   return (
     <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none' }}>
-      {CARDS.map(([src, xVw, yVh, rot, depth, desktopSize, mobileSize], i) => {
-        const hidden = isMobile && mobileSize === null;
-        if (hidden) return null;
+      {CARDS.map(([src, xVw, yVh, rot, depth, desktopSize, tabletSize, mobileSize], i) => {
+        const size = bp === 'mobile' ? mobileSize : bp === 'tablet' ? tabletSize : desktopSize;
+        if (size === null) return null;
 
-        const size    = isMobile ? mobileSize : desktopSize;
         const blur    = Math.max(0, (0.88 - depth) * 4.5);
         const opacity = 0.60 + depth * 0.40;
         const scale   = 0.80 + depth * 0.20;

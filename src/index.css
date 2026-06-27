@@ -126,12 +126,11 @@ canvas.drag { cursor: grabbing; }
   .btn-refresh { font-size: 20px; padding: 6px 10px; }
 }
 
-/* Buy Me a Coffee */
-.bmc-bottom { position: absolute; bottom: 24px; left: 0; right: 0; text-align: center; z-index: 10; }
-.bmc-link { color: rgba(58,50,80,0.45); font-size: 11px; letter-spacing: .12em; text-decoration: none; font-family: 'DM Sans', sans-serif; text-transform: uppercase; transition: color .25s; }
-.bmc-link:hover { color: rgba(58,50,80,0.85); }
-[data-theme="dark"] .bmc-link { color: rgba(190,175,215,0.45); }
-[data-theme="dark"] .bmc-link:hover { color: rgba(190,175,215,0.85); }
+/* Ko-fi button */
+.kofi-bottom { position: absolute; bottom: 20px; left: 0; right: 0; display: flex; justify-content: center; z-index: 10; }
+.kofi-link { display: inline-flex; align-items: center; gap: 8px; background: #09090a; color: #fff; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; letter-spacing: .03em; text-decoration: none; padding: 9px 20px; border-radius: 100px; opacity: 0.72; transition: opacity .25s, transform .25s; }
+.kofi-link:hover { opacity: 1; transform: translateY(-1px); }
+.kofi-icon { width: 22px; height: 22px; object-fit: contain; }
 
 /* Complete */
 .complete-ov { position: fixed; inset: 0; background: var(--overlay); backdrop-filter: blur(10px); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 100; animation: floatUp .8s ease both; }
