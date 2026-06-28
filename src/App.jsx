@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import Landing from './Landing';
 import Setup from './Setup';
 import PuzzleCanvas from './PuzzleCanvas';
@@ -87,6 +88,7 @@ export default function App() {
           )}
         </div>
       )}
+      <Analytics />
     </div>
   );
 }
