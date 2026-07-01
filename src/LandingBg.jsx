@@ -18,6 +18,14 @@ import ar2 from './svgs/architecture/Architecture-2.svg?url';
 import ar4 from './svgs/architecture/Architecture-4.svg?url';
 import ar5 from './svgs/architecture/Architecture-5.svg?url';
 import ar6 from './svgs/architecture/Architecture-6.svg?url';
+import ar7 from './svgs/architecture/Architecture-7.svg?url';
+import ar8 from './svgs/architecture/Architecture-8.svg?url';
+import n7  from './svgs/nature/Nature-7.svg?url';
+import n8  from './svgs/nature/Nature-8.svg?url';
+import n9  from './svgs/nature/Nature-9.svg?url';
+import a9  from './svgs/animals/Animal-9.svg?url';
+import a10 from './svgs/animals/Animal-10.svg?url';
+import a11 from './svgs/animals/Animal-11.svg?url';
 
 // [src, xVw, yVh, rotateDeg, depth, desktopSize, tabletSize, mobileSize]
 // null = hidden at that breakpoint
@@ -42,6 +50,15 @@ const CARDS = [
   // mobile bottom fill (red box gap between CTA and bottom cards)
   [a1,   -18,  30,   8, 0.72, null, null, 108], // mobile bottom center-left
   [a3,    14,  30,  -7, 0.55, null, null, 102], // mobile bottom center-right
+  // new illustrations — desktop only
+  [n7,   -50,   2,  10, 0.45, 168, null, null],
+  [n8,    48,  20,  -8, 0.60, 172, null, null],
+  [n9,   -18,  54,   5, 0.55, 158, null, null],
+  [a9,    20,  54,  -6, 0.68, 164, null, null],
+  [a10,  -48, -14,  12, 0.38, 150, null, null],
+  [a11,   46, -14,  -9, 0.72, 174, null, null],
+  [ar7,  -40,  52,   8, 0.50, 160, null, null],
+  [ar8,   38,  52, -11, 0.42, 154, null, null],
 ];
 
 export default function LandingBg() {
