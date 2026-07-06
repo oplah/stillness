@@ -28,6 +28,12 @@ import nature8Svg        from './svgs/nature/Nature-8.svg?raw';
 import nature9Svg        from './svgs/nature/Nature-9.svg?raw';
 import nature10Svg       from './svgs/nature/Nature-10.svg?raw';
 import nature11Svg       from './svgs/nature/Nature-11.svg?raw';
+import object1Svg        from './svgs/object/Object-1.svg?raw';
+import object2Svg        from './svgs/object/Object-2.svg?raw';
+import object3Svg        from './svgs/object/Object-3.svg?raw';
+import object4Svg        from './svgs/object/Object-4.svg?raw';
+import object5Svg        from './svgs/object/Object-5.svg?raw';
+import object6Svg        from './svgs/object/Object-6.svg?raw';
 
 const uid = () => Math.random().toString(36).slice(2, 7);
 
@@ -104,7 +110,23 @@ function genThingsPal() {
   ];
 }
 
-const PAL_GENS = { nature: genNaturePal, animals: genAnimalsPal, things: genThingsPal };
+function genObjectsPal() {
+  const baseH = r(0, 360);
+  return [
+    hsl(baseH,        r(30, 55), r(60, 75)),
+    hsl(baseH + 20,   r(25, 50), r(65, 78)),
+    hsl(baseH - 15,   r(20, 40), r(70, 82)),
+    hsl(baseH + 40,   r(35, 58), r(55, 68)),
+    hsl(baseH + 60,   r(30, 52), r(58, 72)),
+    hsl(baseH + 80,   r(28, 48), r(62, 76)),
+    hsl(baseH + 100,  r(32, 54), r(56, 70)),
+    hsl(baseH + 140,  r(25, 45), r(64, 78)),
+    hsl(baseH + 180,  r(30, 50), r(60, 74)),
+    hsl(baseH + 220,  r(28, 48), r(62, 76)),
+  ];
+}
+
+const PAL_GENS = { nature: genNaturePal, animals: genAnimalsPal, things: genThingsPal, objects: genObjectsPal };
 
 // ── SVG generators ──────────────────────────────────────────────────────────
 
@@ -689,6 +711,10 @@ const VARIANTS = {
     makeThings, makeThingsLighthouse, makeThingsFloating, makeThingsAqueduct,
     () => architecture1Svg, () => architecture2Svg, () => architecture3Svg, () => architecture4Svg,
     () => architecture5Svg, () => architecture6Svg, () => architecture7Svg, () => architecture8Svg,
+  ],
+  objects: [
+    () => object1Svg, () => object2Svg, () => object3Svg,
+    () => object4Svg, () => object5Svg, () => object6Svg,
   ],
 };
 

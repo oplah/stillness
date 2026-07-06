@@ -7,7 +7,7 @@ import Complete from './Complete';
 import { genIll } from './palettes';
 
 const DIFF = { easy: [4, 4], medium: [5, 5], hard: [6, 6] };
-const THEME_LABELS = { nature: 'Nature', animals: 'Animals', things: 'Architecture' };
+const THEME_LABELS = { nature: 'Nature', animals: 'Animals', things: 'Architecture', objects: 'Objects' };
 
 export default function App() {
   const [screen, setScreen] = useState('landing'); // always start at landing on refresh

@@ -26,6 +26,10 @@ import n9  from './svgs/nature/Nature-9.svg?url';
 import a9  from './svgs/animals/Animal-9.svg?url';
 import a10 from './svgs/animals/Animal-10.svg?url';
 import a11 from './svgs/animals/Animal-11.svg?url';
+import ob1 from './svgs/object/Object-1.svg?url';
+import ob2 from './svgs/object/Object-2.svg?url';
+import ob3 from './svgs/object/Object-3.svg?url';
+import ob4 from './svgs/object/Object-4.svg?url';
 
 // [src, xVw, yVh, rotateDeg, depth, desktopSize, tabletSize, mobileSize]
 // null = hidden at that breakpoint
@@ -59,6 +63,11 @@ const CARDS = [
   [a11,   46, -14,  -9, 0.72, 174, null, null],
   [ar7,  -40,  52,   8, 0.50, 160, null, null],
   [ar8,   38,  52, -11, 0.42, 154, null, null],
+  // objects — desktop only
+  [ob1,  -54,  -6,  14, 0.58, 156, null, null],
+  [ob2,   52,  -6,  -9, 0.44, 148, null, null],
+  [ob3,  -52,  32,  -7, 0.66, 162, null, null],
+  [ob4,   50,  32,  10, 0.52, 152, null, null],
 ];
 
 export default function LandingBg() {

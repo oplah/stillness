@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { genPreview } from './palettes';
 
-const THEME_LABELS = { nature: 'Nature', animals: 'Animals', things: 'Architecture' };
+const THEME_LABELS = { nature: 'Nature', animals: 'Animals', things: 'Architecture', objects: 'Objects' };
 const DLABELS = { easy: 'Gentle · 16 pieces', medium: 'Calm · 25 pieces', hard: 'Serene · 36 pieces' };
 
 export default function Setup({ onBegin, onBack, uiTheme, onToggleUi }) {
@@ -12,6 +12,7 @@ export default function Setup({ onBegin, onBack, uiTheme, onToggleUi }) {
     nature:  genPreview('nature'),
     animals: genPreview('animals'),
     things:  genPreview('things'),
+    objects: genPreview('objects'),
   }));
 
   return (
@@ -30,7 +31,7 @@ export default function Setup({ onBegin, onBack, uiTheme, onToggleUi }) {
       <div className="setup-content">
         <span className="setup-label">Choose your scene</span>
         <div className="theme-grid">
-          {['nature', 'animals', 'things'].map(t => (
+          {['nature', 'animals', 'things', 'objects'].map(t => (
             <div key={t} className={`theme-card${theme === t ? ' sel' : ''}`} onClick={() => setTheme(t)}>
               <div dangerouslySetInnerHTML={{ __html: prev[t] }} style={{ lineHeight: 0 }} />
               <div className="tc-label">{THEME_LABELS[t]}</div>
